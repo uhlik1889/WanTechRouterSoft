@@ -25,19 +25,27 @@ namespace PSIP_projekt
         public kablovanie zapajaniekablov;
 
         public DataTable arptabulka = new DataTable();
-        DataColumn macadresa = new DataColumn();
-        DataColumn ipadresa = new DataColumn();
-        DataColumn port = new DataColumn();
-        DataColumn timer = new DataColumn();
+        private DataColumn arpmacadresa = new DataColumn();
+        private DataColumn arpipadresa = new DataColumn();
+        private DataColumn arpport = new DataColumn();
+        private DataColumn arptimer = new DataColumn();
 
+        public DataTable routingtabulka = new DataTable();
 
-        
-        private DataView view;
+        private DataColumn routsiet = new DataColumn();
+        private DataColumn routmaska = new DataColumn();
+        private DataColumn routtyp = new DataColumn(); // directly, static, RIP, 
+        private DataColumn routnexthop = new DataColumn();
+        private DataColumn routinterface = new DataColumn();
+
+        private DataView viewARP;
+        private DataView viewROUTING;
+
         public Control()
-        {           
+        {
             //filtrikobrazovka = new FiltrovaciaObrazovka(this);
             zapajaniekablov = new kablovanie(this, filtrikobrazovka);
-            
+
             InitializeComponent();
             textBox1.AppendText("Vita ta switch naprogramovany Matejom Uhlikom :D\n");
 
@@ -45,39 +53,95 @@ namespace PSIP_projekt
             timerpc.Tick += new EventHandler(timerpc_Tick);
             timerpc.Enabled = true;
             timerpc.Start();
-            
-            //   pridavanie stlpcov do mac tabulky
 
-            ipadresa.DataType = System.Type.GetType("System.String");
-            ipadresa.ColumnName = "IP";
-            arptabulka.Columns.Add(ipadresa);
+            //   pridavanie stlpcov do ARP tabulky
+
+            #region pridavanie stlpcov do ARP tabulky
+
+            arpipadresa.DataType = System.Type.GetType("System.String");
+            arpipadresa.ColumnName = "IP";
+            arptabulka.Columns.Add(arpipadresa);
             arptabulka.PrimaryKey = new DataColumn[] {arptabulka.Columns["IP"]};
 
-            macadresa.DataType = System.Type.GetType("System.String");
-            macadresa.ColumnName = "Mac";
-            arptabulka.Columns.Add(macadresa);
-            //arptabulka.PrimaryKey = new DataColumn[] { arptabulka.Columns["Mac"] };
+            arpmacadresa.DataType = System.Type.GetType("System.String");
+            arpmacadresa.ColumnName = "Mac";
+            arptabulka.Columns.Add(arpmacadresa);
 
-            port.DataType = System.Type.GetType("System.Int32");
-            port.ColumnName = "Port";
-            arptabulka.Columns.Add(port);
 
-            timer.DataType = System.Type.GetType("System.Int32");
-            timer.ColumnName = "Timer";
-            arptabulka.Columns.Add(timer);
+            arpport.DataType = System.Type.GetType("System.Int32");
+            arpport.ColumnName = "Port";
+            arptabulka.Columns.Add(arpport);
 
-            view = new DataView(arptabulka);
-            dataGridView1.DataSource = view;
+            arptimer.DataType = System.Type.GetType("System.Int32");
+            arptimer.ColumnName = "Timer";
+            arptabulka.Columns.Add(arptimer);
+
+            viewARP = new DataView(arptabulka);
+            arpTabulkaView.DataSource = viewARP;
+
+            #endregion
+
+            //   pridavanie stlpcov do routovacej tabulky
+
+            #region private DataView ROUTINGTABLE
+
+            routsiet.DataType = System.Type.GetType("System.String");
+            routsiet.ColumnName = "Siet";
+            routingtabulka.Columns.Add(routsiet);
+            //routingtabulka.PrimaryKey = new DataColumn[] {arptabulka.Columns["Siet"]};
+
+            routmaska.DataType = System.Type.GetType("System.String");
+            routmaska.ColumnName = "Maska";
+            routingtabulka.Columns.Add(routmaska);
+
+
+            routtyp.DataType = System.Type.GetType("System.Char");
+            routtyp.ColumnName = "Typ";
+            routingtabulka.Columns.Add(routtyp);
+
+            routnexthop.DataType = System.Type.GetType("System.String");
+            routnexthop.ColumnName = "NextHop";
+            routingtabulka.Columns.Add(routnexthop);
+
+            routinterface.DataType = System.Type.GetType("System.Int32");
+            routinterface.ColumnName = "Interface";
+            routingtabulka.Columns.Add(routinterface);
+
+            viewROUTING = new DataView(routingtabulka);
+            routovaciaTableView.DataSource = viewROUTING;
+
+            #endregion
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+
             zapajaniekablov.Ukazkarty(this);
         }
 
-        internal void UpdateText(string p)
+        public string port1IP()
+        {
+            return port1IPadressText.Text;
+        }
+
+        public string port2IP()
+        {
+            return port2IPadressText.Text;
+        }
+
+        public string port1MASKA()
+        {
+            return port1Maska.Text;
+        }
+
+        public string port2MASKA()
+        {
+            return port2Maska.Text;
+        }
+
+
+    internal void UpdateText(string p)
         {
             textBox1.AppendText(p);
         }
@@ -90,6 +154,26 @@ namespace PSIP_projekt
         private void button3_Click(object sender, EventArgs e)
         {
             zapajaniekablov.zastavkomunikaciu(Convert.ToInt32(port2devlistnum.Text), Convert.ToInt32(port1devlistnum.Text));
+        }
+
+        public void macnastav(string MAC, Int32 portkablu)
+        {
+            if(portkablu == 1)
+            SynchronizedInvoke(macLabel1, delegate() { macLabel1.Text = MAC;  });
+            else
+            {
+                SynchronizedInvoke(macLabel2, delegate() { macLabel2.Text = MAC; });
+            }
+        }
+
+        public string mac1daj()
+        {
+            return macLabel1.Text;
+        }
+
+        public string mac2daj()
+        {
+            return macLabel2.Text;
         }
 
         public void notifylabelincoming(string pole, Int32 port)
@@ -205,7 +289,7 @@ namespace PSIP_projekt
         }
 
 
-
+        #region LabelNastavovaciRegion
         private void SetTexticmp1in(string text)
         {
             SynchronizedInvoke(ICMPlabelIn1, delegate() { ICMPlabelIn1.Text = text; });
@@ -256,10 +340,6 @@ namespace PSIP_projekt
             SynchronizedInvoke(IPLabelIn2, delegate() { IPLabelIn2.Text = text; });
         }
 
-
-
-
-
         private void SetTexticmp1out(string text)
         {
             SynchronizedInvoke(ICMPlabelOut1, delegate() { ICMPlabelOut1.Text = text; });
@@ -267,7 +347,7 @@ namespace PSIP_projekt
 
         private void SetTextudp1out(string text)
         {
-            SynchronizedInvoke(UDPLabelOut1, delegate() { UDPLabelOut1.Text = text; });           
+            SynchronizedInvoke(UDPLabelOut1, delegate() { UDPLabelOut1.Text = text; });
         }
 
         private void SetTexttcp1out(string text)
@@ -308,8 +388,8 @@ namespace PSIP_projekt
         private void SetTextip2out(string text)
         {
             SynchronizedInvoke(IPLabelOut2, delegate() { IPLabelOut2.Text = text; });
-        }
-
+        } 
+        #endregion
 
 
         private void timerpc_Tick(object sender, EventArgs e)
@@ -336,14 +416,40 @@ namespace PSIP_projekt
             }
         }
 
-        public void pridajdoarptabulky(String stringac, Int32 integer)
-        {
-            SetText(stringac, integer);
-        }
+        #region PridavanieDoArpTabulky
+            public void pridajdoarptabulky(String stringac, Int32 integer)
+            {
+                SetTextARP(stringac, integer);
+            }
 
-        private void SetText(string text, Int32 integer)
+            private void SetTextARP(string text, Int32 integer)
+            {
+                SynchronizedInvoke(arpTabulkaView, delegate() { arpTabulkaView.Rows.Add(text, integer); });
+            }
+        #endregion
+
+        #region PridavanieDoRoutingTabulky
+            public void pridajdoroutingtabulky(String stringac, Int32 integer)
+            {
+                SetTextRouting(stringac, integer);
+            }
+
+            private void SetTextRouting(string text, Int32 integer)
+            {
+                SynchronizedInvoke(routovaciaTableView, delegate() { routovaciaTableView.Rows.Add(text, integer); });
+            }
+        #endregion
+
+        public void vymazzarptabulky(Int32 integer)
         {
-            SynchronizedInvoke(dataGridView1, delegate() { dataGridView1.Rows.Add(text, integer); });
+            int rowindex = -1;
+            foreach (DataGridViewRow row in arpTabulkaView.Rows)
+            {
+                if (row.Cells[2].Value.ToString().Equals(integer))
+                {                    
+                    arpTabulkaView.Rows.RemoveAt(row.Index);
+                }
+            }
         }
 
         static void SynchronizedInvoke(ISynchronizeInvoke sync, Action action)
@@ -360,28 +466,16 @@ namespace PSIP_projekt
 
             // Marshal to the required context.
             sync.Invoke(action, new object[] { });
+        } 
+
+        public void posliARPport1(string KamIP)
+        {
+            zapajaniekablov.PosliARPRequest(KamIP, port1IPadressText.Text, 1);
         }
 
-        public void vymazzarptabulky(Int32 integer)
+        public void posliARPport2(string KamIP)
         {
-            int rowindex = -1;
-            foreach (DataGridViewRow row in dataGridView1.Rows)
-            {
-                if (row.Cells[2].Value.ToString().Equals(integer))
-                {                    
-                    dataGridView1.Rows.RemoveAt(row.Index);
-                }
-            }
-        }
-
-        private void sendARPtoIPButton_Click_1(object sender, EventArgs e)
-        {
-            zapajaniekablov.PosliARPRequest(sendARPtoIPTextPort1.Text, port1IPadressText.Text, 1);
-        }
-
-        private void sendARPtoIPButtonPort2_Click(object sender, EventArgs e)
-        {
-            zapajaniekablov.PosliARPRequest(sendARPtoIPTextPort2.Text, port2IPadressText.Text, 2);
+            zapajaniekablov.PosliARPRequest(KamIP, port2IPadressText.Text, 2);
         }
         
         private void button5_Click(object sender, EventArgs e)
@@ -406,6 +500,11 @@ namespace PSIP_projekt
         private void button4_Click_1(object sender, EventArgs e)
         {
             arptabulka.Clear();
+        }
+
+        public void vycistiRoutingTabulku()
+        {
+            routingtabulka.Clear();
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -454,8 +553,14 @@ namespace PSIP_projekt
             
         }
 
-        
+        private void sendARPtoIPButton1_Click(object sender, EventArgs e)
+        {
+            zapajaniekablov.PosliARPRequest(sendARPtoIPText1.Text, port1IPadressText.Text, 1);
+        }
 
-        
+        private void sendARPtoIPButton2_Click(object sender, EventArgs e)
+        {
+            zapajaniekablov.PosliARPRequest(sendARPtoIPText2.Text, port2IPadressText.Text, 2);
+        }
     }
 }

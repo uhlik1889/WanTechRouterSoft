@@ -8,13 +8,14 @@ using PcapDotNet.Packets;
 using PcapDotNet.Packets.Ethernet;
 using PcapDotNet.Packets.Icmp;
 using PcapDotNet.Packets.IpV4;
+using Packet = PacketDotNet.Packet;
 
 namespace PSIP_projekt
 {
     class Skladacka
     {
         //ICMPv4Packet icmp = PacketDotNet.ICMPv4Packet.GetEncapsulated(eth);
-        public ICMPv4Packet ping()
+        public PcapDotNet.Packets.Packet ping()
         {
             // Supposing to be on ethernet, set mac source to 01:01:01:01:01:01
             MacAddress source = new MacAddress("01:01:01:01:01:01");
@@ -44,6 +45,10 @@ namespace PSIP_projekt
 
             // Create the builder that will build our packets
             PacketBuilder builder = new PacketBuilder(ethernetLayer, ipV4Layer, icmpLayer);
+
+            PcapDotNet.Packets.Packet packet = builder.Build(DateTime.Now);
+
+            return packet;
         }
     }
 }

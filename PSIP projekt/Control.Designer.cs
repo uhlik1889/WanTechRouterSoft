@@ -51,7 +51,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.timerpc = new System.Windows.Forms.Timer(this.components);
             this.arptext = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.arpTabulkaView = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.IPLabelOut1 = new System.Windows.Forms.Label();
@@ -94,18 +94,27 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.port1IPadressText = new System.Windows.Forms.TextBox();
-            this.sendARPtoIPTextPort1 = new System.Windows.Forms.TextBox();
-            this.sendARPtoIPButtonPort1 = new System.Windows.Forms.Button();
+            this.sendARPtoIPButton1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.port2IPadressText = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
-            this.sendARPtoIPButtonPort2 = new System.Windows.Forms.Button();
-            this.sendARPtoIPTextPort2 = new System.Windows.Forms.TextBox();
+            this.routovaciaTableView = new System.Windows.Forms.DataGridView();
+            this.port1Maska = new System.Windows.Forms.TextBox();
+            this.port2Maska = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.sendARPtoIPText1 = new System.Windows.Forms.TextBox();
+            this.sendARPtoIPButton2 = new System.Windows.Forms.Button();
+            this.sendARPtoIPText2 = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.macLabel1 = new System.Windows.Forms.Label();
+            this.macLabel2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.arpTabulkaView)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.routovaciaTableView)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -129,7 +138,7 @@
             // 
             // port1devlistnum
             // 
-            this.port1devlistnum.Location = new System.Drawing.Point(81, 160);
+            this.port1devlistnum.Location = new System.Drawing.Point(81, 125);
             this.port1devlistnum.Name = "port1devlistnum";
             this.port1devlistnum.Size = new System.Drawing.Size(100, 20);
             this.port1devlistnum.TabIndex = 3;
@@ -137,7 +146,7 @@
             // 
             // port2devlistnum
             // 
-            this.port2devlistnum.Location = new System.Drawing.Point(81, 189);
+            this.port2devlistnum.Location = new System.Drawing.Point(81, 154);
             this.port2devlistnum.Name = "port2devlistnum";
             this.port2devlistnum.Size = new System.Drawing.Size(100, 20);
             this.port2devlistnum.TabIndex = 4;
@@ -146,7 +155,7 @@
             // label
             // 
             this.label.AutoSize = true;
-            this.label.Location = new System.Drawing.Point(34, 163);
+            this.label.Location = new System.Drawing.Point(34, 128);
             this.label.Name = "label";
             this.label.Size = new System.Drawing.Size(34, 13);
             this.label.TabIndex = 5;
@@ -155,7 +164,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(34, 192);
+            this.label2.Location = new System.Drawing.Point(34, 157);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(34, 13);
             this.label2.TabIndex = 6;
@@ -163,7 +172,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(202, 160);
+            this.button2.Location = new System.Drawing.Point(202, 125);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(110, 23);
             this.button2.TabIndex = 7;
@@ -173,7 +182,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(201, 192);
+            this.button3.Location = new System.Drawing.Point(201, 157);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(110, 23);
             this.button3.TabIndex = 8;
@@ -213,15 +222,15 @@
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.ICMPpocettext1);
             this.panel1.Controls.Add(this.ICMPlabelIn1);
-            this.panel1.Location = new System.Drawing.Point(498, 248);
+            this.panel1.Location = new System.Drawing.Point(482, 324);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(344, 209);
+            this.panel1.Size = new System.Drawing.Size(360, 166);
             this.panel1.TabIndex = 11;
             // 
             // IPpocettext
             // 
             this.IPpocettext.AutoSize = true;
-            this.IPpocettext.Location = new System.Drawing.Point(225, 138);
+            this.IPpocettext.Location = new System.Drawing.Point(225, 104);
             this.IPpocettext.Name = "IPpocettext";
             this.IPpocettext.Size = new System.Drawing.Size(47, 13);
             this.IPpocettext.TabIndex = 19;
@@ -230,7 +239,7 @@
             // IPLabelIn1
             // 
             this.IPLabelIn1.AutoSize = true;
-            this.IPLabelIn1.Location = new System.Drawing.Point(238, 171);
+            this.IPLabelIn1.Location = new System.Drawing.Point(238, 137);
             this.IPLabelIn1.Name = "IPLabelIn1";
             this.IPLabelIn1.Size = new System.Drawing.Size(17, 13);
             this.IPLabelIn1.TabIndex = 18;
@@ -239,7 +248,7 @@
             // ARPlabeltext
             // 
             this.ARPlabeltext.AutoSize = true;
-            this.ARPlabeltext.Location = new System.Drawing.Point(86, 138);
+            this.ARPlabeltext.Location = new System.Drawing.Point(86, 104);
             this.ARPlabeltext.Name = "ARPlabeltext";
             this.ARPlabeltext.Size = new System.Drawing.Size(59, 13);
             this.ARPlabeltext.TabIndex = 17;
@@ -248,7 +257,7 @@
             // ARPLabelIn1
             // 
             this.ARPLabelIn1.AutoSize = true;
-            this.ARPLabelIn1.Location = new System.Drawing.Point(99, 171);
+            this.ARPLabelIn1.Location = new System.Drawing.Point(99, 137);
             this.ARPLabelIn1.Name = "ARPLabelIn1";
             this.ARPLabelIn1.Size = new System.Drawing.Size(29, 13);
             this.ARPLabelIn1.TabIndex = 16;
@@ -308,13 +317,13 @@
             this.arptext.TabIndex = 13;
             this.arptext.Text = "ARP-tabulka";
             // 
-            // dataGridView1
+            // arpTabulkaView
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(31, 543);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(368, 166);
-            this.dataGridView1.TabIndex = 14;
+            this.arpTabulkaView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.arpTabulkaView.Location = new System.Drawing.Point(31, 543);
+            this.arpTabulkaView.Name = "arpTabulkaView";
+            this.arpTabulkaView.Size = new System.Drawing.Size(368, 166);
+            this.arpTabulkaView.TabIndex = 14;
             // 
             // panel2
             // 
@@ -330,15 +339,15 @@
             this.panel2.Controls.Add(this.label12);
             this.panel2.Controls.Add(this.label13);
             this.panel2.Controls.Add(this.ICMPlabelOut1);
-            this.panel2.Location = new System.Drawing.Point(848, 248);
+            this.panel2.Location = new System.Drawing.Point(848, 324);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(344, 209);
+            this.panel2.Size = new System.Drawing.Size(344, 166);
             this.panel2.TabIndex = 20;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(225, 138);
+            this.label3.Location = new System.Drawing.Point(225, 104);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(47, 13);
             this.label3.TabIndex = 19;
@@ -347,7 +356,7 @@
             // IPLabelOut1
             // 
             this.IPLabelOut1.AutoSize = true;
-            this.IPLabelOut1.Location = new System.Drawing.Point(238, 171);
+            this.IPLabelOut1.Location = new System.Drawing.Point(238, 137);
             this.IPLabelOut1.Name = "IPLabelOut1";
             this.IPLabelOut1.Size = new System.Drawing.Size(17, 13);
             this.IPLabelOut1.TabIndex = 18;
@@ -356,7 +365,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(86, 138);
+            this.label6.Location = new System.Drawing.Point(86, 104);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(59, 13);
             this.label6.TabIndex = 17;
@@ -365,7 +374,7 @@
             // ARPLabelOut1
             // 
             this.ARPLabelOut1.AutoSize = true;
-            this.ARPLabelOut1.Location = new System.Drawing.Point(99, 171);
+            this.ARPLabelOut1.Location = new System.Drawing.Point(99, 137);
             this.ARPLabelOut1.Name = "ARPLabelOut1";
             this.ARPLabelOut1.Size = new System.Drawing.Size(29, 13);
             this.ARPLabelOut1.TabIndex = 16;
@@ -458,15 +467,15 @@
             this.panel3.Controls.Add(this.label18);
             this.panel3.Controls.Add(this.label19);
             this.panel3.Controls.Add(this.ICMPLabelIn2);
-            this.panel3.Location = new System.Drawing.Point(498, 500);
+            this.panel3.Location = new System.Drawing.Point(482, 530);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(344, 209);
+            this.panel3.Size = new System.Drawing.Size(360, 179);
             this.panel3.TabIndex = 20;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(225, 138);
+            this.label5.Location = new System.Drawing.Point(225, 110);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(47, 13);
             this.label5.TabIndex = 19;
@@ -475,7 +484,7 @@
             // IPLabelIn2
             // 
             this.IPLabelIn2.AutoSize = true;
-            this.IPLabelIn2.Location = new System.Drawing.Point(238, 171);
+            this.IPLabelIn2.Location = new System.Drawing.Point(238, 143);
             this.IPLabelIn2.Name = "IPLabelIn2";
             this.IPLabelIn2.Size = new System.Drawing.Size(17, 13);
             this.IPLabelIn2.TabIndex = 18;
@@ -484,7 +493,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(86, 138);
+            this.label9.Location = new System.Drawing.Point(86, 110);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(59, 13);
             this.label9.TabIndex = 17;
@@ -493,7 +502,7 @@
             // ARPLabelIn2
             // 
             this.ARPLabelIn2.AutoSize = true;
-            this.ARPLabelIn2.Location = new System.Drawing.Point(99, 171);
+            this.ARPLabelIn2.Location = new System.Drawing.Point(99, 143);
             this.ARPLabelIn2.Name = "ARPLabelIn2";
             this.ARPLabelIn2.Size = new System.Drawing.Size(29, 13);
             this.ARPLabelIn2.TabIndex = 16;
@@ -576,15 +585,15 @@
             this.panel4.Controls.Add(this.label24);
             this.panel4.Controls.Add(this.label25);
             this.panel4.Controls.Add(this.ICMPLabelOut2);
-            this.panel4.Location = new System.Drawing.Point(848, 500);
+            this.panel4.Location = new System.Drawing.Point(848, 530);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(344, 209);
+            this.panel4.Size = new System.Drawing.Size(344, 179);
             this.panel4.TabIndex = 21;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(225, 138);
+            this.label7.Location = new System.Drawing.Point(225, 106);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(47, 13);
             this.label7.TabIndex = 19;
@@ -593,7 +602,7 @@
             // IPLabelOut2
             // 
             this.IPLabelOut2.AutoSize = true;
-            this.IPLabelOut2.Location = new System.Drawing.Point(238, 171);
+            this.IPLabelOut2.Location = new System.Drawing.Point(238, 139);
             this.IPLabelOut2.Name = "IPLabelOut2";
             this.IPLabelOut2.Size = new System.Drawing.Size(17, 13);
             this.IPLabelOut2.TabIndex = 18;
@@ -602,7 +611,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(86, 138);
+            this.label15.Location = new System.Drawing.Point(86, 106);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(59, 13);
             this.label15.TabIndex = 17;
@@ -611,7 +620,7 @@
             // ARPLabelOut2
             // 
             this.ARPLabelOut2.AutoSize = true;
-            this.ARPLabelOut2.Location = new System.Drawing.Point(99, 171);
+            this.ARPLabelOut2.Location = new System.Drawing.Point(99, 139);
             this.ARPLabelOut2.Name = "ARPLabelOut2";
             this.ARPLabelOut2.Size = new System.Drawing.Size(29, 13);
             this.ARPLabelOut2.TabIndex = 16;
@@ -683,7 +692,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(495, 232);
+            this.label11.Location = new System.Drawing.Point(479, 296);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(35, 13);
             this.label11.TabIndex = 23;
@@ -692,7 +701,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(495, 484);
+            this.label17.Location = new System.Drawing.Point(479, 506);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(35, 13);
             this.label17.TabIndex = 24;
@@ -710,7 +719,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(786, 463);
+            this.button6.Location = new System.Drawing.Point(786, 496);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(123, 23);
             this.button6.TabIndex = 26;
@@ -720,86 +729,165 @@
             // 
             // port1IPadressText
             // 
-            this.port1IPadressText.Location = new System.Drawing.Point(37, 418);
+            this.port1IPadressText.Location = new System.Drawing.Point(81, 223);
             this.port1IPadressText.Name = "port1IPadressText";
             this.port1IPadressText.Size = new System.Drawing.Size(132, 20);
             this.port1IPadressText.TabIndex = 27;
-            this.port1IPadressText.Text = "10.10.10.10";
+            this.port1IPadressText.Text = "1.1.1.1";
             // 
-            // sendARPtoIPTextPort1
+            // sendARPtoIPButton1
             // 
-            this.sendARPtoIPTextPort1.Location = new System.Drawing.Point(181, 428);
-            this.sendARPtoIPTextPort1.Name = "sendARPtoIPTextPort1";
-            this.sendARPtoIPTextPort1.Size = new System.Drawing.Size(130, 20);
-            this.sendARPtoIPTextPort1.TabIndex = 29;
-            this.sendARPtoIPTextPort1.Text = "IP";
-            // 
-            // sendARPtoIPButtonPort1
-            // 
-            this.sendARPtoIPButtonPort1.Location = new System.Drawing.Point(181, 399);
-            this.sendARPtoIPButtonPort1.Name = "sendARPtoIPButtonPort1";
-            this.sendARPtoIPButtonPort1.Size = new System.Drawing.Size(130, 23);
-            this.sendARPtoIPButtonPort1.TabIndex = 30;
-            this.sendARPtoIPButtonPort1.Text = "Posli ARP request";
-            this.sendARPtoIPButtonPort1.UseVisualStyleBackColor = true;
-            this.sendARPtoIPButtonPort1.Click += new System.EventHandler(this.sendARPtoIPButton_Click_1);
+            this.sendARPtoIPButton1.Location = new System.Drawing.Point(343, 291);
+            this.sendARPtoIPButton1.Name = "sendARPtoIPButton1";
+            this.sendARPtoIPButton1.Size = new System.Drawing.Size(130, 23);
+            this.sendARPtoIPButton1.TabIndex = 30;
+            this.sendARPtoIPButton1.Text = "Posli ARP request";
+            this.sendARPtoIPButton1.UseVisualStyleBackColor = true;
+            this.sendARPtoIPButton1.Click += new System.EventHandler(this.sendARPtoIPButton1_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(34, 399);
+            this.label1.Location = new System.Drawing.Point(28, 223);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(82, 13);
+            this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 31;
-            this.label1.Text = "IP adresa port 1";
+            this.label1.Text = "Port 1";
             // 
             // port2IPadressText
             // 
-            this.port2IPadressText.Location = new System.Drawing.Point(37, 470);
+            this.port2IPadressText.Location = new System.Drawing.Point(81, 253);
             this.port2IPadressText.Name = "port2IPadressText";
             this.port2IPadressText.Size = new System.Drawing.Size(132, 20);
             this.port2IPadressText.TabIndex = 32;
-            this.port2IPadressText.Text = "10.10.10.10";
+            this.port2IPadressText.Text = "2.2.2.2";
             // 
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(34, 454);
+            this.label21.Location = new System.Drawing.Point(28, 256);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(82, 13);
+            this.label21.Size = new System.Drawing.Size(35, 13);
             this.label21.TabIndex = 33;
-            this.label21.Text = "IP adresa port 2";
+            this.label21.Text = "Port 2";
             // 
-            // sendARPtoIPButtonPort2
+            // routovaciaTableView
             // 
-            this.sendARPtoIPButtonPort2.Location = new System.Drawing.Point(181, 454);
-            this.sendARPtoIPButtonPort2.Name = "sendARPtoIPButtonPort2";
-            this.sendARPtoIPButtonPort2.Size = new System.Drawing.Size(130, 23);
-            this.sendARPtoIPButtonPort2.TabIndex = 35;
-            this.sendARPtoIPButtonPort2.Text = "Posli ARP request";
-            this.sendARPtoIPButtonPort2.UseVisualStyleBackColor = true;
-            this.sendARPtoIPButtonPort2.Click += new System.EventHandler(this.sendARPtoIPButtonPort2_Click);
+            this.routovaciaTableView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.routovaciaTableView.Location = new System.Drawing.Point(482, 39);
+            this.routovaciaTableView.Name = "routovaciaTableView";
+            this.routovaciaTableView.Size = new System.Drawing.Size(710, 242);
+            this.routovaciaTableView.TabIndex = 36;
             // 
-            // sendARPtoIPTextPort2
+            // port1Maska
             // 
-            this.sendARPtoIPTextPort2.Location = new System.Drawing.Point(181, 483);
-            this.sendARPtoIPTextPort2.Name = "sendARPtoIPTextPort2";
-            this.sendARPtoIPTextPort2.Size = new System.Drawing.Size(130, 20);
-            this.sendARPtoIPTextPort2.TabIndex = 34;
-            this.sendARPtoIPTextPort2.Text = "IP";
+            this.port1Maska.Location = new System.Drawing.Point(235, 223);
+            this.port1Maska.Name = "port1Maska";
+            this.port1Maska.Size = new System.Drawing.Size(132, 20);
+            this.port1Maska.TabIndex = 37;
+            this.port1Maska.Text = "255.255.255.0";
+            // 
+            // port2Maska
+            // 
+            this.port2Maska.Location = new System.Drawing.Point(235, 253);
+            this.port2Maska.Name = "port2Maska";
+            this.port2Maska.Size = new System.Drawing.Size(132, 20);
+            this.port2Maska.TabIndex = 38;
+            this.port2Maska.Text = "255.255.255.0";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(78, 198);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(49, 13);
+            this.label23.TabIndex = 39;
+            this.label23.Text = "IPadresa";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(237, 198);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(39, 13);
+            this.label26.TabIndex = 40;
+            this.label26.Text = "Maska";
+            // 
+            // sendARPtoIPText1
+            // 
+            this.sendARPtoIPText1.Location = new System.Drawing.Point(343, 320);
+            this.sendARPtoIPText1.Name = "sendARPtoIPText1";
+            this.sendARPtoIPText1.Size = new System.Drawing.Size(130, 20);
+            this.sendARPtoIPText1.TabIndex = 29;
+            this.sendARPtoIPText1.Text = "IP";
+            // 
+            // sendARPtoIPButton2
+            // 
+            this.sendARPtoIPButton2.Location = new System.Drawing.Point(343, 346);
+            this.sendARPtoIPButton2.Name = "sendARPtoIPButton2";
+            this.sendARPtoIPButton2.Size = new System.Drawing.Size(130, 23);
+            this.sendARPtoIPButton2.TabIndex = 41;
+            this.sendARPtoIPButton2.Text = "Posli ARP request";
+            this.sendARPtoIPButton2.UseVisualStyleBackColor = true;
+            this.sendARPtoIPButton2.Click += new System.EventHandler(this.sendARPtoIPButton2_Click);
+            // 
+            // sendARPtoIPText2
+            // 
+            this.sendARPtoIPText2.Location = new System.Drawing.Point(343, 375);
+            this.sendARPtoIPText2.Name = "sendARPtoIPText2";
+            this.sendARPtoIPText2.Size = new System.Drawing.Size(130, 20);
+            this.sendARPtoIPText2.TabIndex = 42;
+            this.sendARPtoIPText2.Text = "IP";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(410, 106);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(63, 13);
+            this.label27.TabIndex = 43;
+            this.label27.Text = "Mac adresa";
+            // 
+            // macLabel1
+            // 
+            this.macLabel1.AutoSize = true;
+            this.macLabel1.Location = new System.Drawing.Point(369, 128);
+            this.macLabel1.Name = "macLabel1";
+            this.macLabel1.Size = new System.Drawing.Size(36, 13);
+            this.macLabel1.TabIndex = 44;
+            this.macLabel1.Text = "x.x.x.x";
+            this.macLabel1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // macLabel2
+            // 
+            this.macLabel2.AutoSize = true;
+            this.macLabel2.Location = new System.Drawing.Point(369, 161);
+            this.macLabel2.Name = "macLabel2";
+            this.macLabel2.Size = new System.Drawing.Size(36, 13);
+            this.macLabel2.TabIndex = 45;
+            this.macLabel2.Text = "x.x.x.x";
+            this.macLabel2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // Control
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1218, 740);
-            this.Controls.Add(this.sendARPtoIPButtonPort2);
-            this.Controls.Add(this.sendARPtoIPTextPort2);
+            this.Controls.Add(this.macLabel2);
+            this.Controls.Add(this.macLabel1);
+            this.Controls.Add(this.label27);
+            this.Controls.Add(this.sendARPtoIPText2);
+            this.Controls.Add(this.sendARPtoIPButton2);
+            this.Controls.Add(this.label26);
+            this.Controls.Add(this.label23);
+            this.Controls.Add(this.port2Maska);
+            this.Controls.Add(this.port1Maska);
+            this.Controls.Add(this.routovaciaTableView);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.port2IPadressText);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.sendARPtoIPButtonPort1);
-            this.Controls.Add(this.sendARPtoIPTextPort1);
+            this.Controls.Add(this.sendARPtoIPButton1);
+            this.Controls.Add(this.sendARPtoIPText1);
             this.Controls.Add(this.port1IPadressText);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button4);
@@ -809,7 +897,7 @@
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.arpTabulkaView);
             this.Controls.Add(this.arptext);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button3);
@@ -824,13 +912,14 @@
             this.Text = "Form1";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.arpTabulkaView)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.routovaciaTableView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -860,7 +949,7 @@
         private System.Windows.Forms.Label IPLabelIn1;
         private System.Windows.Forms.Timer timerpc;
         private System.Windows.Forms.Label arptext;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView arpTabulkaView;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label IPLabelOut1;
@@ -903,13 +992,21 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.TextBox port1IPadressText;
-        private System.Windows.Forms.TextBox sendARPtoIPTextPort1;
-        private System.Windows.Forms.Button sendARPtoIPButtonPort1;
+        private System.Windows.Forms.Button sendARPtoIPButton1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox port2IPadressText;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Button sendARPtoIPButtonPort2;
-        private System.Windows.Forms.TextBox sendARPtoIPTextPort2;
+        private System.Windows.Forms.DataGridView routovaciaTableView;
+        private System.Windows.Forms.TextBox port1Maska;
+        private System.Windows.Forms.TextBox port2Maska;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox sendARPtoIPText1;
+        private System.Windows.Forms.Button sendARPtoIPButton2;
+        private System.Windows.Forms.TextBox sendARPtoIPText2;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label macLabel1;
+        private System.Windows.Forms.Label macLabel2;
     }
 }
 

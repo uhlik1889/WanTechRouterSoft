@@ -114,6 +114,7 @@
     <Compile Include="FiltrovaciaObrazovka.Designer.cs">
       <DependentUpon>FiltrovaciaObrazovka.cs</DependentUpon>
     </Compile>
+    <Compile Include="IPAddressExtensions.cs" />
     <Compile Include="kablovanie.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
