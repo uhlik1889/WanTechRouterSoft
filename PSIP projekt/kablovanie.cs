@@ -11,7 +11,9 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -120,8 +122,11 @@ namespace PSIP_projekt
                     EthernetPacketType.Arp);
                 ARPPacket arp = new ARPPacket(ARPOperation.Request, PhysicalAddress.Parse("FFFFFFFFFFFF"), IPAddress.Parse(IPKam), port1device.MacAddress, IPAddress.Parse(IPOdkial));
                 ethernetPacket.PayloadPacket = arp;
-                port1device.SendPacket(ethernetPacket);
-                updatujoutgoingtrafiku(null, arp, null, null, null, portkablu);
+                if (port1device.Opened)
+                {
+                    port1device.SendPacket(ethernetPacket);
+                    updatujoutgoingtrafiku(null, arp, null, null, null, portkablu);
+                }
             }
             else
             {
@@ -129,8 +134,11 @@ namespace PSIP_projekt
                     EthernetPacketType.Arp);
                 ARPPacket arp = new ARPPacket(ARPOperation.Request, PhysicalAddress.Parse("FFFFFFFFFFFF"), IPAddress.Parse(IPKam), port2device.MacAddress, IPAddress.Parse(IPOdkial));
                 ethernetPacket.PayloadPacket = arp;
-                port2device.SendPacket(ethernetPacket);
-                updatujoutgoingtrafiku(null, arp, null, null, null, portkablu);
+                if (port2device.Opened)
+                {
+                    port2device.SendPacket(ethernetPacket);
+                    updatujoutgoingtrafiku(null, arp, null, null, null, portkablu);
+                }
             }  
         }
 
@@ -142,16 +150,22 @@ namespace PSIP_projekt
                 var ethernetPacket = new EthernetPacket(port1device.MacAddress, PhysicalAddress.Parse(MACKam),
                     EthernetPacketType.Arp);
                 ethernetPacket.PayloadPacket = arp;
-                port1device.SendPacket(ethernetPacket);
-                updatujoutgoingtrafiku(null, arp, null, null, null, portkablu);
+                if (port1device.Opened)
+                {
+                    port1device.SendPacket(ethernetPacket);
+                    updatujoutgoingtrafiku(null, arp, null, null, null, portkablu);
+                }
             }
             else
             {
                 var ethernetPacket = new EthernetPacket(port2device.MacAddress, PhysicalAddress.Parse(MACKam),
                     EthernetPacketType.Arp);
                 ethernetPacket.PayloadPacket = arp;
-                port2device.SendPacket(ethernetPacket);
-                updatujoutgoingtrafiku(null, arp, null, null, null, portkablu);
+                if (port2device.Opened)
+                {
+                    port2device.SendPacket(ethernetPacket);
+                    updatujoutgoingtrafiku(null, arp, null, null, null, portkablu);
+                }
             }
         }
 
@@ -251,14 +265,14 @@ namespace PSIP_projekt
                             if (row["NextHop"].ToString().Equals("null"))   
                             {
                             // spracuj ramec a updatuj grafiku, len ak mame ARP inak posli ARP
-                                spracujpacket(portkablu, null, eth, ip, icmp, udp, tcp, arp);
+                                spracujpacket(null, eth, ip, icmp, udp, tcp, arp);
                                 row = null;
                             }
                             // PRACUJE S NEXTHOPOM
                             else
                             {
                             // spracuj ramec a updatuj grafiku, len ak mame ARP inak posli ARP
-                                spracujpacket(portkablu, row, eth, ip, icmp, udp, tcp, arp);
+                                spracujpacket(row, eth, ip, icmp, udp, tcp, arp);
                                 row = null;
                             }
 
@@ -511,10 +525,8 @@ namespace PSIP_projekt
                             
         }
 
-        private void spracujpacket(Int32 portkablu, DataRow row, EthernetPacket eth, IpPacket ip, ICMPv4Packet icmp, UdpPacket udp, TcpPacket tcp, ARPPacket arp)
+        private void spracujpacket(DataRow row, EthernetPacket eth, IpPacket ip, ICMPv4Packet icmp, UdpPacket udp, TcpPacket tcp, ARPPacket arp)
         {
-
-        
             if (row != null)
             {
                 //dosiel mi paket a mam jeho zaznam v arp tabulke
@@ -525,15 +537,21 @@ namespace PSIP_projekt
                     {
                         eth.DestinationHwAddress = PhysicalAddress.Parse(foundRow["Mac"].ToString());
                         eth.SourceHwAddress = PhysicalAddress.Parse(hlavnaforma.mac1daj());
-                        port1device.SendPacket(eth);
-                        updatujoutgoingtrafiku(icmp, arp, udp, tcp, ip, 1);
+                        if (port1device.Opened)
+                        {
+                            port1device.SendPacket(eth);
+                            updatujoutgoingtrafiku(icmp, arp, udp, tcp, ip, 1);
+                        }
                     }
                     else
                     {
                         eth.DestinationHwAddress = PhysicalAddress.Parse(foundRow["Mac"].ToString());
                         eth.SourceHwAddress = PhysicalAddress.Parse(hlavnaforma.mac2daj());
-                        port2device.SendPacket(eth);
-                        updatujoutgoingtrafiku(icmp, arp, udp, tcp, ip, 2);
+                        if (port2device.Opened)
+                        {
+                            port2device.SendPacket(eth);
+                            updatujoutgoingtrafiku(icmp, arp, udp, tcp, ip, 2);
+                        }
                     }
                 }
                 //dosiel mi paket a nemam jeho zaznam v arp tabulke, posielam request
@@ -542,13 +560,19 @@ namespace PSIP_projekt
                     DataRow riadok = najdiNajspecifickejsiuSiet(null, IPAddress.Parse(row["NextHop"].ToString()));
                     if ((int)riadok["Interface"] == 2)
                     {
-                        PosliARPRequest(row["NextHop"].ToString(), hlavnaforma.port2IP(), 2);
-                        updatujoutgoingtrafiku(icmp, arp, udp, tcp, ip, 2);
+                        if (port2device.Opened)
+                        {
+                            PosliARPRequest(row["NextHop"].ToString(), hlavnaforma.port2IP(), 2);
+                            updatujoutgoingtrafiku(icmp, arp, udp, tcp, ip, 2);
+                        }
                     }
                     else
                     {
-                        PosliARPRequest(row["NextHop"].ToString(), hlavnaforma.port1IP(), 1);
-                        updatujoutgoingtrafiku(icmp, arp, udp, tcp, ip, 1);
+                        if (port1device.Opened)
+                        {
+                            PosliARPRequest(row["NextHop"].ToString(), hlavnaforma.port1IP(), 1);
+                            updatujoutgoingtrafiku(icmp, arp, udp, tcp, ip, 1);
+                        }
                     }
                 }
                 // nemam NEXTHOP takze cez packet.destionationipaddress
@@ -563,15 +587,21 @@ namespace PSIP_projekt
                     {
                         eth.DestinationHwAddress = PhysicalAddress.Parse(foundRow["Mac"].ToString());
                         eth.SourceHwAddress = PhysicalAddress.Parse(hlavnaforma.mac1daj());
-                        port1device.SendPacket(eth);
-                        updatujoutgoingtrafiku(icmp, arp, udp, tcp, ip, 1);
+                        if (port1device.Opened)
+                        {
+                            port1device.SendPacket(eth);
+                            updatujoutgoingtrafiku(icmp, arp, udp, tcp, ip, 1);
+                        }
                     }
                     else
                     {
                         eth.DestinationHwAddress = PhysicalAddress.Parse(foundRow["Mac"].ToString());
                         eth.SourceHwAddress = PhysicalAddress.Parse(hlavnaforma.mac2daj());
-                        port2device.SendPacket(eth);
-                        updatujoutgoingtrafiku(icmp, arp, udp, tcp, ip, 2);
+                        if (port2device.Opened)
+                        {
+                            port2device.SendPacket(eth);
+                            updatujoutgoingtrafiku(icmp, arp, udp, tcp, ip, 2);
+                        }
                     }
                 }
                 //dosiel mi paket a nemam jeho zaznam v arp tabulke, posielam request
@@ -580,13 +610,19 @@ namespace PSIP_projekt
                     DataRow riadok = najdiNajspecifickejsiuSiet(null, ip.DestinationAddress);
                     if ((int)riadok["Interface"] == 2)
                     {
-                        PosliARPRequest(ip.DestinationAddress.ToString(), hlavnaforma.port2IP(), 2);
-                        updatujoutgoingtrafiku(icmp, arp, udp, tcp, ip, 2);
+                        if (port2device.Opened)
+                        {
+                            PosliARPRequest(ip.DestinationAddress.ToString(), hlavnaforma.port2IP(), 2);
+                            updatujoutgoingtrafiku(icmp, arp, udp, tcp, ip, 2);
+                        }
                     }
                     else
                     {
-                        PosliARPRequest(ip.DestinationAddress.ToString(), hlavnaforma.port1IP(), 1);
-                        updatujoutgoingtrafiku(icmp, arp, udp, tcp, ip, 1);
+                        if (port1device.Opened)
+                        {
+                            PosliARPRequest(ip.DestinationAddress.ToString(), hlavnaforma.port1IP(), 1);
+                            updatujoutgoingtrafiku(icmp, arp, udp, tcp, ip, 1);
+                        }
                     }
                 }
             }
@@ -597,6 +633,160 @@ namespace PSIP_projekt
         {
             // odpovedam na icmp
             
+        }
+
+        public void posliPing(String ipeckaString)
+        {
+            checkIP(ipeckaString, true);
+            Skladacka skladanie = new Skladacka();
+
+            DataRow row = najdiNajspecifickejsiuSiet(null, IPAddress.Parse(ipeckaString));
+            while (row != null)
+            {
+                // ak ma najspecifickejsia siet, interface tak dovi
+                if (Int32.Parse(row["Interface"].ToString()) != 0)
+                {
+                    // PRACUJE S DESTIN IP V PAKETE
+                    if (row["NextHop"].ToString().Equals("null"))
+                    {
+                        // spracuj ramec a updatuj grafiku, len ak mame ARP inak posli ARP
+                        // potrebujem nastavit zdroj a ciel MAC
+                        if (hlavnaforma.arptabulka.Rows.Contains(IPAddress.Parse(ipeckaString)))
+                        {
+                            DataRow foundRow = hlavnaforma.arptabulka.Rows.Find(IPAddress.Parse(ipeckaString));
+                            if ((int)(foundRow["Port"]) == 1)
+                            {
+                                // vytvorenie pingu ako navratovu hodnotu do eth paketu                           
+                                EthernetPacket eth = skladanie.ping(foundRow["Mac"].ToString(), hlavnaforma.mac1daj(), ipeckaString, hlavnaforma.port1IP());
+                                ICMPv4Packet icmp = PacketDotNet.ICMPv4Packet.GetEncapsulated(eth); // pre statistiku vytvorim icmp paket :D 
+                                if (port1device.Opened)
+                                {
+                                    port1device.SendPacket(eth);
+                                    updatujoutgoingtrafiku(icmp, null, null, null, null, 1);
+                                }
+                            }
+                            else
+                            {
+                                // vytvorenie pingu ako navratovu hodnotu do eth paketu 
+                                EthernetPacket eth = skladanie.ping(foundRow["Mac"].ToString(), hlavnaforma.mac2daj(), ipeckaString, hlavnaforma.port2IP());
+                                ICMPv4Packet icmp = PacketDotNet.ICMPv4Packet.GetEncapsulated(eth);  // pre statistiku vytvorim icmp paket :D 
+                                if (port2device.Opened)
+                                {
+                                    port2device.SendPacket(eth);
+                                    updatujoutgoingtrafiku(icmp, null, null, null, null, 2);
+                                }
+                            }
+                        }
+                        //dosiel mi paket a nemam jeho zaznam v arp tabulke, posielam request
+                        else
+                        {
+                            DataRow riadok = najdiNajspecifickejsiuSiet(null, IPAddress.Parse(ipeckaString));
+                            if ((int)riadok["Interface"] == 2)
+                            {
+                                if (port2device.Opened)
+                                {
+                                    PosliARPRequest(ipeckaString, hlavnaforma.port2IP(), 2);
+                                }
+                            }
+                            else
+                            {
+                                if (port1device.Opened)
+                                {
+                                    PosliARPRequest(ipeckaString, hlavnaforma.port1IP(), 1);
+                                }
+                            }
+                        }
+                        row = null;
+                    }
+                    // PRACUJE S NEXTHOPOM
+                    else
+                    {
+                        // spracuj ramec a updatuj grafiku, len ak mame ARP inak posli ARP
+                        // potrebujem nastavit zdroj a ciel MAC
+                        if (hlavnaforma.arptabulka.Rows.Contains(IPAddress.Parse(row["NextHop"].ToString())))
+                        {
+                            DataRow foundRow = hlavnaforma.arptabulka.Rows.Find(IPAddress.Parse(row["NextHop"].ToString()));
+                            if ((int)(foundRow["Port"]) == 1)
+                            {
+                                // vytvorenie pingu ako navratovu hodnotu do eth paketu                           
+                                EthernetPacket eth = skladanie.ping(foundRow["Mac"].ToString(), hlavnaforma.mac1daj(), ipeckaString, hlavnaforma.port1IP());
+                                ICMPv4Packet icmp = PacketDotNet.ICMPv4Packet.GetEncapsulated(eth); // pre statistiku vytvorim icmp paket :D 
+                                if (port1device.Opened)
+                                {
+                                    port1device.SendPacket(eth);
+                                    updatujoutgoingtrafiku(icmp, null, null, null, null, 1);
+                                }
+                            }
+                            else
+                            {
+                                // vytvorenie pingu ako navratovu hodnotu do eth paketu 
+                                EthernetPacket eth = skladanie.ping(foundRow["Mac"].ToString(), hlavnaforma.mac2daj(), ipeckaString, hlavnaforma.port2IP());
+                                ICMPv4Packet icmp = PacketDotNet.ICMPv4Packet.GetEncapsulated(eth);  // pre statistiku vytvorim icmp paket :D 
+                                if (port2device.Opened)
+                                {
+                                    port2device.SendPacket(eth);
+                                    updatujoutgoingtrafiku(icmp, null, null, null, null, 2);
+                                }
+                            }
+                        }
+                        //dosiel mi paket a nemam jeho zaznam v arp tabulke, posielam request
+                        else
+                        {
+                            DataRow riadok = najdiNajspecifickejsiuSiet(null, IPAddress.Parse(row["NextHop"].ToString()));
+                            if ((int)riadok["Interface"] == 2)
+                            {
+                                if (port2device.Opened)
+                                {
+                                    PosliARPRequest(row["NextHop"].ToString(), hlavnaforma.port2IP(), 2);
+                                }
+                            }
+                            else
+                            {
+                                if (port1device.Opened)
+                                {
+                                    PosliARPRequest(row["NextHop"].ToString(), hlavnaforma.port1IP(), 1);
+                                }
+                            }
+                        }
+                        row = null;
+                    }
+
+                }
+                else
+                {
+                    row = najdiNajspecifickejsiuSiet(row, IPAddress.Parse(ipeckaString));
+                }
+
+            }
+                        
+            // prerutuj cez routing table
+
+        }
+
+        public void vytvorStatickuCestu(string Siet, string Maska, string NextHop, string Interface)
+        {
+            if (checkIP(Siet, true) && checkIP(Maska, false) && !(NextHop.Equals(hlavnaforma.port1IP()) || NextHop.Equals(hlavnaforma.port2IP())))
+            {
+                DataRow row2 = hlavnaforma.routingtabulka.NewRow();
+                row2["Siet"] = IPAddress.Parse(Siet);
+                row2["Maska"] = hlavnaforma.port2MASKA();
+                row2["Typ"] = 'S';
+                row2["NextHop"] = "null";
+                row2["Interface"] = 2;
+                hlavnaforma.routingtabulka.Rows.Add(row2);
+            }
+        }
+
+        private Boolean checkIP(string ip, bool ipTRUE_maskFALSE)
+        {
+            string patternIP = @"\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b";
+            string mask = @"(255|254|252|248|240|224|192|128|0+)";
+            Regex maskRegex = new Regex("^" + mask + @"\." + mask + @"\." + mask + @"\." + mask + "$");
+
+            if (ipTRUE_maskFALSE)
+                return Regex.IsMatch(ip, patternIP);
+            else
+                return maskRegex.IsMatch(ip);
         }
     }
 }

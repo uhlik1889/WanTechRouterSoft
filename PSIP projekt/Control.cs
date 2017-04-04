@@ -562,5 +562,30 @@ namespace PSIP_projekt
         {
             zapajaniekablov.PosliARPRequest(sendARPtoIPText2.Text, port2IPadressText.Text, 2);
         }
+
+        private void label32_Click(object sender, EventArgs e)
+        {
+
+        }
+        // tlacitko pre vytvorenie statickej cesty
+        private void button7_Click(object sender, EventArgs e)
+        {
+            zapajaniekablov.vytvorStatickuCestu(sietTextBoxSC.Text, maskaTextBoxSC.Text, nextHopTextBoxSC.Text, interfaceTextBoxSC.Text);
+        }
+        // tlacitko pre zrusenie statickej cesty
+        private void buttonSCZrus_Click(object sender, EventArgs e)
+        {
+            DataRow row = ((DataRowView)routovaciaTableView.CurrentRow.DataBoundItem).Row;
+            if ((row != null) && ((char)row["Typ"]=='S'))
+            {
+                routingtabulka.Rows.Remove(row);
+            }
+        }
+
+        private void pingButton_Click(object sender, EventArgs e)
+        {
+            zapajaniekablov.posliPing(pingTextBox.Text);
+        }
+        
     }
 }

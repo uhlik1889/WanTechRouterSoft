@@ -109,6 +109,20 @@
             this.label27 = new System.Windows.Forms.Label();
             this.macLabel1 = new System.Windows.Forms.Label();
             this.macLabel2 = new System.Windows.Forms.Label();
+            this.sietTextBoxSC = new System.Windows.Forms.TextBox();
+            this.maskaTextBoxSC = new System.Windows.Forms.TextBox();
+            this.nextHopTextBoxSC = new System.Windows.Forms.TextBox();
+            this.interfaceTextBoxSC = new System.Windows.Forms.TextBox();
+            this.buttonSCVytvor = new System.Windows.Forms.Button();
+            this.buttonSCZrus = new System.Windows.Forms.Button();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.pingTextBox = new System.Windows.Forms.TextBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.pingButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.arpTabulkaView)).BeginInit();
             this.panel2.SuspendLayout();
@@ -222,9 +236,9 @@
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.ICMPpocettext1);
             this.panel1.Controls.Add(this.ICMPlabelIn1);
-            this.panel1.Location = new System.Drawing.Point(482, 324);
+            this.panel1.Location = new System.Drawing.Point(498, 346);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(360, 166);
+            this.panel1.Size = new System.Drawing.Size(344, 162);
             this.panel1.TabIndex = 11;
             // 
             // IPpocettext
@@ -339,7 +353,7 @@
             this.panel2.Controls.Add(this.label12);
             this.panel2.Controls.Add(this.label13);
             this.panel2.Controls.Add(this.ICMPlabelOut1);
-            this.panel2.Location = new System.Drawing.Point(848, 324);
+            this.panel2.Location = new System.Drawing.Point(848, 342);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(344, 166);
             this.panel2.TabIndex = 20;
@@ -467,9 +481,9 @@
             this.panel3.Controls.Add(this.label18);
             this.panel3.Controls.Add(this.label19);
             this.panel3.Controls.Add(this.ICMPLabelIn2);
-            this.panel3.Location = new System.Drawing.Point(482, 530);
+            this.panel3.Location = new System.Drawing.Point(498, 543);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(360, 179);
+            this.panel3.Size = new System.Drawing.Size(344, 166);
             this.panel3.TabIndex = 20;
             // 
             // label5
@@ -585,9 +599,9 @@
             this.panel4.Controls.Add(this.label24);
             this.panel4.Controls.Add(this.label25);
             this.panel4.Controls.Add(this.ICMPLabelOut2);
-            this.panel4.Location = new System.Drawing.Point(848, 530);
+            this.panel4.Location = new System.Drawing.Point(848, 543);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(344, 179);
+            this.panel4.Size = new System.Drawing.Size(344, 166);
             this.panel4.TabIndex = 21;
             // 
             // label7
@@ -692,7 +706,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(479, 296);
+            this.label11.Location = new System.Drawing.Point(457, 346);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(35, 13);
             this.label11.TabIndex = 23;
@@ -701,7 +715,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(479, 506);
+            this.label17.Location = new System.Drawing.Point(457, 543);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(35, 13);
             this.label17.TabIndex = 24;
@@ -719,7 +733,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(786, 496);
+            this.button6.Location = new System.Drawing.Point(786, 514);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(123, 23);
             this.button6.TabIndex = 26;
@@ -737,9 +751,9 @@
             // 
             // sendARPtoIPButton1
             // 
-            this.sendARPtoIPButton1.Location = new System.Drawing.Point(343, 291);
+            this.sendARPtoIPButton1.Location = new System.Drawing.Point(413, 575);
             this.sendARPtoIPButton1.Name = "sendARPtoIPButton1";
-            this.sendARPtoIPButton1.Size = new System.Drawing.Size(130, 23);
+            this.sendARPtoIPButton1.Size = new System.Drawing.Size(71, 20);
             this.sendARPtoIPButton1.TabIndex = 30;
             this.sendARPtoIPButton1.Text = "Posli ARP request";
             this.sendARPtoIPButton1.UseVisualStyleBackColor = true;
@@ -775,7 +789,9 @@
             // 
             this.routovaciaTableView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.routovaciaTableView.Location = new System.Drawing.Point(482, 39);
+            this.routovaciaTableView.MultiSelect = false;
             this.routovaciaTableView.Name = "routovaciaTableView";
+            this.routovaciaTableView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.routovaciaTableView.Size = new System.Drawing.Size(710, 242);
             this.routovaciaTableView.TabIndex = 36;
             // 
@@ -815,17 +831,17 @@
             // 
             // sendARPtoIPText1
             // 
-            this.sendARPtoIPText1.Location = new System.Drawing.Point(343, 320);
+            this.sendARPtoIPText1.Location = new System.Drawing.Point(413, 601);
             this.sendARPtoIPText1.Name = "sendARPtoIPText1";
-            this.sendARPtoIPText1.Size = new System.Drawing.Size(130, 20);
+            this.sendARPtoIPText1.Size = new System.Drawing.Size(71, 20);
             this.sendARPtoIPText1.TabIndex = 29;
-            this.sendARPtoIPText1.Text = "IP";
+            this.sendARPtoIPText1.Text = "1.1.1.2";
             // 
             // sendARPtoIPButton2
             // 
-            this.sendARPtoIPButton2.Location = new System.Drawing.Point(343, 346);
+            this.sendARPtoIPButton2.Location = new System.Drawing.Point(413, 630);
             this.sendARPtoIPButton2.Name = "sendARPtoIPButton2";
-            this.sendARPtoIPButton2.Size = new System.Drawing.Size(130, 23);
+            this.sendARPtoIPButton2.Size = new System.Drawing.Size(71, 20);
             this.sendARPtoIPButton2.TabIndex = 41;
             this.sendARPtoIPButton2.Text = "Posli ARP request";
             this.sendARPtoIPButton2.UseVisualStyleBackColor = true;
@@ -833,11 +849,11 @@
             // 
             // sendARPtoIPText2
             // 
-            this.sendARPtoIPText2.Location = new System.Drawing.Point(343, 375);
+            this.sendARPtoIPText2.Location = new System.Drawing.Point(413, 656);
             this.sendARPtoIPText2.Name = "sendARPtoIPText2";
-            this.sendARPtoIPText2.Size = new System.Drawing.Size(130, 20);
+            this.sendARPtoIPText2.Size = new System.Drawing.Size(71, 20);
             this.sendARPtoIPText2.TabIndex = 42;
-            this.sendARPtoIPText2.Text = "IP";
+            this.sendARPtoIPText2.Text = "2.2.2.3";
             // 
             // label27
             // 
@@ -868,11 +884,147 @@
             this.macLabel2.Text = "x.x.x.x";
             this.macLabel2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // sietTextBoxSC
+            // 
+            this.sietTextBoxSC.Location = new System.Drawing.Point(567, 303);
+            this.sietTextBoxSC.Name = "sietTextBoxSC";
+            this.sietTextBoxSC.Size = new System.Drawing.Size(132, 20);
+            this.sietTextBoxSC.TabIndex = 46;
+            // 
+            // maskaTextBoxSC
+            // 
+            this.maskaTextBoxSC.Location = new System.Drawing.Point(708, 303);
+            this.maskaTextBoxSC.Name = "maskaTextBoxSC";
+            this.maskaTextBoxSC.Size = new System.Drawing.Size(132, 20);
+            this.maskaTextBoxSC.TabIndex = 47;
+            // 
+            // nextHopTextBoxSC
+            // 
+            this.nextHopTextBoxSC.Location = new System.Drawing.Point(846, 303);
+            this.nextHopTextBoxSC.Name = "nextHopTextBoxSC";
+            this.nextHopTextBoxSC.Size = new System.Drawing.Size(132, 20);
+            this.nextHopTextBoxSC.TabIndex = 48;
+            // 
+            // interfaceTextBoxSC
+            // 
+            this.interfaceTextBoxSC.Location = new System.Drawing.Point(984, 303);
+            this.interfaceTextBoxSC.Name = "interfaceTextBoxSC";
+            this.interfaceTextBoxSC.Size = new System.Drawing.Size(132, 20);
+            this.interfaceTextBoxSC.TabIndex = 49;
+            // 
+            // buttonSCVytvor
+            // 
+            this.buttonSCVytvor.Location = new System.Drawing.Point(1122, 291);
+            this.buttonSCVytvor.Name = "buttonSCVytvor";
+            this.buttonSCVytvor.Size = new System.Drawing.Size(39, 42);
+            this.buttonSCVytvor.TabIndex = 50;
+            this.buttonSCVytvor.Text = "OK";
+            this.buttonSCVytvor.UseVisualStyleBackColor = true;
+            this.buttonSCVytvor.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // buttonSCZrus
+            // 
+            this.buttonSCZrus.Location = new System.Drawing.Point(1167, 291);
+            this.buttonSCZrus.Name = "buttonSCZrus";
+            this.buttonSCZrus.Size = new System.Drawing.Size(39, 42);
+            this.buttonSCZrus.TabIndex = 51;
+            this.buttonSCZrus.Text = "X";
+            this.buttonSCZrus.UseVisualStyleBackColor = true;
+            this.buttonSCZrus.Click += new System.EventHandler(this.buttonSCZrus_Click);
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(564, 288);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(26, 13);
+            this.label28.TabIndex = 52;
+            this.label28.Text = "Sieť";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(705, 287);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(86, 13);
+            this.label29.TabIndex = 53;
+            this.label29.Text = "Maska (A.B.C.D)";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(843, 287);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(52, 13);
+            this.label30.TabIndex = 54;
+            this.label30.Text = "Next Hop";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(981, 287);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(49, 13);
+            this.label31.TabIndex = 55;
+            this.label31.Text = "Interface";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label32.Location = new System.Drawing.Point(436, 298);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(122, 24);
+            this.label32.TabIndex = 56;
+            this.label32.Text = "Statická cesta";
+            this.label32.Click += new System.EventHandler(this.label32_Click);
+            // 
+            // pingTextBox
+            // 
+            this.pingTextBox.Location = new System.Drawing.Point(144, 291);
+            this.pingTextBox.Name = "pingTextBox";
+            this.pingTextBox.Size = new System.Drawing.Size(132, 20);
+            this.pingTextBox.TabIndex = 57;
+            this.pingTextBox.Text = "2.2.2.3";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(141, 275);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(49, 13);
+            this.label33.TabIndex = 58;
+            this.label33.Text = "IPadresa";
+            // 
+            // pingButton
+            // 
+            this.pingButton.Location = new System.Drawing.Point(282, 289);
+            this.pingButton.Name = "pingButton";
+            this.pingButton.Size = new System.Drawing.Size(57, 23);
+            this.pingButton.TabIndex = 59;
+            this.pingButton.Text = "PING";
+            this.pingButton.UseVisualStyleBackColor = true;
+            this.pingButton.Click += new System.EventHandler(this.pingButton_Click);
+            // 
             // Control
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1218, 740);
+            this.Controls.Add(this.pingButton);
+            this.Controls.Add(this.label33);
+            this.Controls.Add(this.pingTextBox);
+            this.Controls.Add(this.label32);
+            this.Controls.Add(this.label31);
+            this.Controls.Add(this.label30);
+            this.Controls.Add(this.label29);
+            this.Controls.Add(this.label28);
+            this.Controls.Add(this.buttonSCZrus);
+            this.Controls.Add(this.buttonSCVytvor);
+            this.Controls.Add(this.interfaceTextBoxSC);
+            this.Controls.Add(this.nextHopTextBoxSC);
+            this.Controls.Add(this.maskaTextBoxSC);
+            this.Controls.Add(this.sietTextBoxSC);
             this.Controls.Add(this.macLabel2);
             this.Controls.Add(this.macLabel1);
             this.Controls.Add(this.label27);
@@ -1007,6 +1159,20 @@
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label macLabel1;
         private System.Windows.Forms.Label macLabel2;
+        private System.Windows.Forms.TextBox sietTextBoxSC;
+        private System.Windows.Forms.TextBox maskaTextBoxSC;
+        private System.Windows.Forms.TextBox nextHopTextBoxSC;
+        private System.Windows.Forms.TextBox interfaceTextBoxSC;
+        private System.Windows.Forms.Button buttonSCVytvor;
+        private System.Windows.Forms.Button buttonSCZrus;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.TextBox pingTextBox;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Button pingButton;
     }
 }
 
