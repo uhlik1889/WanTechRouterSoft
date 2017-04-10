@@ -102,14 +102,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PSIP projekt.exe" size="68608">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PSIP projekt.exe" size="69120">
       <assemblyIdentity name="PSIP projekt" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>GlssG8d5wILsu7pnAG/A842a24tlodaM8DPp0HPml80=</dsig:DigestValue>
+        <dsig:DigestValue>4WyHAuq/Bj4BDTgFLcxgVpjFgsm5if923wswQXevuUM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

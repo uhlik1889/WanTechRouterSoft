@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,14 +38,18 @@ namespace PSIP_projekt
         private DataColumn routtyp = new DataColumn(); // directly, static, RIP, 
         private DataColumn routnexthop = new DataColumn();
         private DataColumn routinterface = new DataColumn();
+        private DataColumn routinvflush = new DataColumn();
+        private DataColumn routholddown = new DataColumn();
+        private DataColumn routmetrika = new DataColumn();
 
         private DataView viewARP;
         private DataView viewROUTING;
-
+        RIP ripko = new RIP();
         public Control()
         {
             //filtrikobrazovka = new FiltrovaciaObrazovka(this);
             zapajaniekablov = new kablovanie(this, filtrikobrazovka);
+            
 
             InitializeComponent();
             textBox1.AppendText("Vita ta switch naprogramovany Matejom Uhlikom :D\n");
@@ -88,12 +93,10 @@ namespace PSIP_projekt
             routsiet.DataType = System.Type.GetType("System.String");
             routsiet.ColumnName = "Siet";
             routingtabulka.Columns.Add(routsiet);
-            //routingtabulka.PrimaryKey = new DataColumn[] {arptabulka.Columns["Siet"]};
 
             routmaska.DataType = System.Type.GetType("System.String");
             routmaska.ColumnName = "Maska";
             routingtabulka.Columns.Add(routmaska);
-
 
             routtyp.DataType = System.Type.GetType("System.Char");
             routtyp.ColumnName = "Typ";
@@ -107,11 +110,22 @@ namespace PSIP_projekt
             routinterface.ColumnName = "Interface";
             routingtabulka.Columns.Add(routinterface);
 
+            routinvflush.DataType = System.Type.GetType("System.Int32");
+            routinvflush.ColumnName = "Invalid+Flush";
+            routingtabulka.Columns.Add(routinvflush);
+
+            routholddown.DataType = System.Type.GetType("System.Int32");
+            routholddown.ColumnName = "Holddown";
+            routingtabulka.Columns.Add(routholddown);
+
+            routmetrika.DataType = System.Type.GetType("System.Int32");
+            routmetrika.ColumnName = "Metrika";
+            routingtabulka.Columns.Add(routmetrika);
+
             viewROUTING = new DataView(routingtabulka);
             routovaciaTableView.DataSource = viewROUTING;
 
             #endregion
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -585,6 +599,20 @@ namespace PSIP_projekt
         private void pingButton_Click(object sender, EventArgs e)
         {
             zapajaniekablov.posliPing(pingTextBox.Text);
+        }
+
+        //////////////////////////////////////////////////////////////////////////////////////
+        /// String macCiel, String macZdroj, String ipecka, String ipeckaOdkial
+        private void posielanieRIP(Int32 portkablu)
+        {
+            if (portkablu == 1)
+            {
+                ripko.posliRIP("01005E000009", macLabel1.Text, "224.0.0.9", port1IPadressText.Text);
+            }
+            else // portkablu = 2
+            {
+                ripko.posliRIP("01005E000009", macLabel2.Text, "224.0.0.9", port2IPadressText.Text);
+            }
         }
         
     }

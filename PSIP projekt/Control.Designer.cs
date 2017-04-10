@@ -133,9 +133,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(31, 11);
+            this.button1.Location = new System.Drawing.Point(1, 11);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(69, 23);
+            this.button1.Size = new System.Drawing.Size(51, 23);
             this.button1.TabIndex = 1;
             this.button1.Text = "Zobraz porty ";
             this.button1.UseVisualStyleBackColor = true;
@@ -143,7 +143,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(31, 40);
+            this.textBox1.Location = new System.Drawing.Point(58, 11);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -152,7 +152,7 @@
             // 
             // port1devlistnum
             // 
-            this.port1devlistnum.Location = new System.Drawing.Point(81, 125);
+            this.port1devlistnum.Location = new System.Drawing.Point(97, 110);
             this.port1devlistnum.Name = "port1devlistnum";
             this.port1devlistnum.Size = new System.Drawing.Size(100, 20);
             this.port1devlistnum.TabIndex = 3;
@@ -160,7 +160,7 @@
             // 
             // port2devlistnum
             // 
-            this.port2devlistnum.Location = new System.Drawing.Point(81, 154);
+            this.port2devlistnum.Location = new System.Drawing.Point(97, 139);
             this.port2devlistnum.Name = "port2devlistnum";
             this.port2devlistnum.Size = new System.Drawing.Size(100, 20);
             this.port2devlistnum.TabIndex = 4;
@@ -169,7 +169,7 @@
             // label
             // 
             this.label.AutoSize = true;
-            this.label.Location = new System.Drawing.Point(34, 128);
+            this.label.Location = new System.Drawing.Point(51, 113);
             this.label.Name = "label";
             this.label.Size = new System.Drawing.Size(34, 13);
             this.label.TabIndex = 5;
@@ -178,7 +178,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(34, 157);
+            this.label2.Location = new System.Drawing.Point(51, 142);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(34, 13);
             this.label2.TabIndex = 6;
@@ -186,7 +186,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(202, 125);
+            this.button2.Location = new System.Drawing.Point(215, 110);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(110, 23);
             this.button2.TabIndex = 7;
@@ -196,7 +196,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(201, 157);
+            this.button3.Location = new System.Drawing.Point(215, 137);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(110, 23);
             this.button3.TabIndex = 8;
@@ -743,9 +743,9 @@
             // 
             // port1IPadressText
             // 
-            this.port1IPadressText.Location = new System.Drawing.Point(81, 223);
+            this.port1IPadressText.Location = new System.Drawing.Point(97, 193);
             this.port1IPadressText.Name = "port1IPadressText";
-            this.port1IPadressText.Size = new System.Drawing.Size(132, 20);
+            this.port1IPadressText.Size = new System.Drawing.Size(84, 20);
             this.port1IPadressText.TabIndex = 27;
             this.port1IPadressText.Text = "1.1.1.1";
             // 
@@ -762,7 +762,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(28, 223);
+            this.label1.Location = new System.Drawing.Point(44, 193);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 31;
@@ -770,16 +770,16 @@
             // 
             // port2IPadressText
             // 
-            this.port2IPadressText.Location = new System.Drawing.Point(81, 253);
+            this.port2IPadressText.Location = new System.Drawing.Point(97, 223);
             this.port2IPadressText.Name = "port2IPadressText";
-            this.port2IPadressText.Size = new System.Drawing.Size(132, 20);
+            this.port2IPadressText.Size = new System.Drawing.Size(84, 20);
             this.port2IPadressText.TabIndex = 32;
             this.port2IPadressText.Text = "2.2.2.2";
             // 
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(28, 256);
+            this.label21.Location = new System.Drawing.Point(44, 226);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(35, 13);
             this.label21.TabIndex = 33;
@@ -788,7 +788,7 @@
             // routovaciaTableView
             // 
             this.routovaciaTableView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.routovaciaTableView.Location = new System.Drawing.Point(482, 39);
+            this.routovaciaTableView.Location = new System.Drawing.Point(482, 27);
             this.routovaciaTableView.MultiSelect = false;
             this.routovaciaTableView.Name = "routovaciaTableView";
             this.routovaciaTableView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -797,24 +797,24 @@
             // 
             // port1Maska
             // 
-            this.port1Maska.Location = new System.Drawing.Point(235, 223);
+            this.port1Maska.Location = new System.Drawing.Point(251, 193);
             this.port1Maska.Name = "port1Maska";
-            this.port1Maska.Size = new System.Drawing.Size(132, 20);
+            this.port1Maska.Size = new System.Drawing.Size(84, 20);
             this.port1Maska.TabIndex = 37;
             this.port1Maska.Text = "255.255.255.0";
             // 
             // port2Maska
             // 
-            this.port2Maska.Location = new System.Drawing.Point(235, 253);
+            this.port2Maska.Location = new System.Drawing.Point(251, 223);
             this.port2Maska.Name = "port2Maska";
-            this.port2Maska.Size = new System.Drawing.Size(132, 20);
+            this.port2Maska.Size = new System.Drawing.Size(84, 20);
             this.port2Maska.TabIndex = 38;
             this.port2Maska.Text = "255.255.255.0";
             // 
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(78, 198);
+            this.label23.Location = new System.Drawing.Point(94, 168);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(49, 13);
             this.label23.TabIndex = 39;
@@ -823,7 +823,7 @@
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(237, 198);
+            this.label26.Location = new System.Drawing.Point(253, 168);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(39, 13);
             this.label26.TabIndex = 40;
@@ -858,7 +858,7 @@
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(410, 106);
+            this.label27.Location = new System.Drawing.Point(375, 168);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(63, 13);
             this.label27.TabIndex = 43;
@@ -867,7 +867,7 @@
             // macLabel1
             // 
             this.macLabel1.AutoSize = true;
-            this.macLabel1.Location = new System.Drawing.Point(369, 128);
+            this.macLabel1.Location = new System.Drawing.Point(352, 196);
             this.macLabel1.Name = "macLabel1";
             this.macLabel1.Size = new System.Drawing.Size(36, 13);
             this.macLabel1.TabIndex = 44;
@@ -877,7 +877,7 @@
             // macLabel2
             // 
             this.macLabel2.AutoSize = true;
-            this.macLabel2.Location = new System.Drawing.Point(369, 161);
+            this.macLabel2.Location = new System.Drawing.Point(352, 225);
             this.macLabel2.Name = "macLabel2";
             this.macLabel2.Size = new System.Drawing.Size(36, 13);
             this.macLabel2.TabIndex = 45;
@@ -981,7 +981,7 @@
             // 
             // pingTextBox
             // 
-            this.pingTextBox.Location = new System.Drawing.Point(144, 291);
+            this.pingTextBox.Location = new System.Drawing.Point(97, 265);
             this.pingTextBox.Name = "pingTextBox";
             this.pingTextBox.Size = new System.Drawing.Size(132, 20);
             this.pingTextBox.TabIndex = 57;
@@ -990,7 +990,7 @@
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(141, 275);
+            this.label33.Location = new System.Drawing.Point(94, 249);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(49, 13);
             this.label33.TabIndex = 58;
@@ -998,7 +998,7 @@
             // 
             // pingButton
             // 
-            this.pingButton.Location = new System.Drawing.Point(282, 289);
+            this.pingButton.Location = new System.Drawing.Point(235, 263);
             this.pingButton.Name = "pingButton";
             this.pingButton.Size = new System.Drawing.Size(57, 23);
             this.pingButton.TabIndex = 59;
