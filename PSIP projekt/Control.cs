@@ -13,6 +13,8 @@ using PacketDotNet;
 using SharpPcap;
 using SharpPcap.WinPcap;
 using Timer = System.Threading.Timer;
+using System.Net;
+using Knom.Helpers.Net;
 
 namespace PSIP_projekt
 {
@@ -24,6 +26,9 @@ namespace PSIP_projekt
         private Statistika statistikaodchadzajuca2 = new Statistika();
         private FiltrovaciaObrazovka filtrikobrazovka;
         public kablovanie zapajaniekablov;
+
+        public char RIP1 = '0';
+        public char RIP2 = '0';
 
         public DataTable arptabulka = new DataTable();
         private DataColumn arpmacadresa = new DataColumn();
@@ -39,25 +44,50 @@ namespace PSIP_projekt
         private DataColumn routnexthop = new DataColumn();
         private DataColumn routinterface = new DataColumn();
         private DataColumn routinvflush = new DataColumn();
-        private DataColumn routholddown = new DataColumn();
-        private DataColumn routmetrika = new DataColumn();
+        private DataColumn routinlokacia = new DataColumn();
+        public DataColumn routmetrika = new DataColumn();
+        public DataColumn routflag = new DataColumn();
+        public bool bezirip1 = false;
+        public bool bezirip2 = false;
+        public bool beziport1 = false;
+        public bool beziport2 = false;
+
+        private string mac1;
+        private string mac2;
 
         private DataView viewARP;
         private DataView viewROUTING;
-        RIP ripko = new RIP();
+        RIP ripko = null;
         public Control()
         {
             //filtrikobrazovka = new FiltrovaciaObrazovka(this);
             zapajaniekablov = new kablovanie(this, filtrikobrazovka);
+            ripko = new RIP(this, filtrikobrazovka);
             
 
             InitializeComponent();
             textBox1.AppendText("Vita ta switch naprogramovany Matejom Uhlikom :D\n");
 
-            timerpc.Interval = (1*1000);
+            timerpc.Interval = (1000);
             timerpc.Tick += new EventHandler(timerpc_Tick);
             timerpc.Enabled = true;
             timerpc.Start();
+
+            timer1.Interval = (1000);
+            timer1.Tick += new EventHandler(timerrip_Tick);
+            timer1.Enabled = true;
+            timer1.Start();
+
+            posielanieRIP1.Interval = (5000);
+            posielanieRIP1.Tick += new EventHandler(posielanieRIP1_Tick);
+
+
+            posielanieRIP2.Interval = (5000);
+            posielanieRIP2.Tick += new EventHandler(posielanieRIP2_Tick);
+  
+
+
+
 
             //   pridavanie stlpcov do ARP tabulky
 
@@ -83,12 +113,13 @@ namespace PSIP_projekt
 
             viewARP = new DataView(arptabulka);
             arpTabulkaView.DataSource = viewARP;
+            arpTabulkaView.DataError += arpTabulkaViewErrorHandler();
 
             #endregion
 
             //   pridavanie stlpcov do routovacej tabulky
 
-            #region private DataView ROUTINGTABLE
+            #region pridavanie stlpcov do routing tabulky
 
             routsiet.DataType = System.Type.GetType("System.String");
             routsiet.ColumnName = "Siet";
@@ -99,7 +130,7 @@ namespace PSIP_projekt
             routingtabulka.Columns.Add(routmaska);
 
             routtyp.DataType = System.Type.GetType("System.Char");
-            routtyp.ColumnName = "Typ";
+            routtyp.ColumnName = "Typ";            
             routingtabulka.Columns.Add(routtyp);
 
             routnexthop.DataType = System.Type.GetType("System.String");
@@ -114,18 +145,36 @@ namespace PSIP_projekt
             routinvflush.ColumnName = "Invalid+Flush";
             routingtabulka.Columns.Add(routinvflush);
 
-            routholddown.DataType = System.Type.GetType("System.Int32");
-            routholddown.ColumnName = "Holddown";
-            routingtabulka.Columns.Add(routholddown);
+            routinlokacia.DataType = System.Type.GetType("System.String");
+            routinlokacia.ColumnName = "Lokacia";
+            routingtabulka.Columns.Add(routinlokacia);
 
             routmetrika.DataType = System.Type.GetType("System.Int32");
             routmetrika.ColumnName = "Metrika";
             routingtabulka.Columns.Add(routmetrika);
 
+            routflag.DataType = System.Type.GetType("System.Char");
+            routflag.ColumnName = "Flag";
+            routingtabulka.Columns.Add(routflag);
+
             viewROUTING = new DataView(routingtabulka);
             routovaciaTableView.DataSource = viewROUTING;
+            routovaciaTableView.DataError += routovaciaTableViewErrorHandler();
+            routingtabulka.Columns["Lokacia"].DefaultValue = "";
+            routingtabulka.Columns["Flag"].DefaultValue = '0';
+            routingtabulka.Columns["NextHop"].DefaultValue = "null";            
 
             #endregion
+        }
+
+        private DataGridViewDataErrorEventHandler routovaciaTableViewErrorHandler()
+        {
+            return null;
+        }
+
+        private DataGridViewDataErrorEventHandler arpTabulkaViewErrorHandler()
+        {
+            return null;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -160,34 +209,33 @@ namespace PSIP_projekt
             textBox1.AppendText(p);
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            zapajaniekablov.Spojpocitace(this, Convert.ToInt32(port2devlistnum.Text), Convert.ToInt32(port1devlistnum.Text));
-        }
-
         private void button3_Click(object sender, EventArgs e)
         {
-            zapajaniekablov.zastavkomunikaciu(Convert.ToInt32(port2devlistnum.Text), Convert.ToInt32(port1devlistnum.Text));
+            //zapajaniekablov.zastavkomunikaciu(Convert.ToInt32(port2devlistnum.Text), Convert.ToInt32(port1devlistnum.Text));
         }
 
         public void macnastav(string MAC, Int32 portkablu)
         {
-            if(portkablu == 1)
-            SynchronizedInvoke(macLabel1, delegate() { macLabel1.Text = MAC;  });
+            if (portkablu == 1)
+            {
+                SynchronizedInvoke(macLabel1, delegate() { macLabel1.Text = MAC; });
+                mac1 = MAC;
+            }
             else
             {
                 SynchronizedInvoke(macLabel2, delegate() { macLabel2.Text = MAC; });
+                mac2 = MAC;
             }
         }
 
         public string mac1daj()
         {
-            return macLabel1.Text;
+            return mac1;
         }
 
         public string mac2daj()
         {
-            return macLabel2.Text;
+            return mac2;
         }
 
         public void notifylabelincoming(string pole, Int32 port)
@@ -584,7 +632,10 @@ namespace PSIP_projekt
         // tlacitko pre vytvorenie statickej cesty
         private void button7_Click(object sender, EventArgs e)
         {
-            zapajaniekablov.vytvorStatickuCestu(sietTextBoxSC.Text, maskaTextBoxSC.Text, nextHopTextBoxSC.Text, interfaceTextBoxSC.Text);
+            if(interfaceTextBoxSC.Text.Equals(""))
+                zapajaniekablov.vytvorStatickuCestu(sietTextBoxSC.Text, maskaTextBoxSC.Text, nextHopTextBoxSC.Text, 0);
+            else
+                zapajaniekablov.vytvorStatickuCestu(sietTextBoxSC.Text, maskaTextBoxSC.Text, nextHopTextBoxSC.Text, Int32.Parse(interfaceTextBoxSC.Text));
         }
         // tlacitko pre zrusenie statickej cesty
         private void buttonSCZrus_Click(object sender, EventArgs e)
@@ -599,20 +650,239 @@ namespace PSIP_projekt
         private void pingButton_Click(object sender, EventArgs e)
         {
             zapajaniekablov.posliPing(pingTextBox.Text);
+            pingButton.BackColor = Color.BlueViolet;
         }
 
         //////////////////////////////////////////////////////////////////////////////////////
         /// String macCiel, String macZdroj, String ipecka, String ipeckaOdkial
-        private void posielanieRIP(Int32 portkablu)
+        public void posliRIP(Int32 portkablu)
         {
             if (portkablu == 1)
             {
-                ripko.posliRIP("01005E000009", macLabel1.Text, "224.0.0.9", port1IPadressText.Text);
+                if (beziport2 && bezirip2)
+                {
+                    // info su o porte kablu 2 ale posiela sa portom 1
+                    EthernetPacket packet = ripko.posielanieRIP("01005E000009", macLabel1.Text, "224.0.0.9", port1IPadressText.Text, port2IPadressText.Text, port2Maska.Text, 2);
+                    zapajaniekablov.posliPacket(packet, 1);
+                }
             }
             else // portkablu = 2
             {
-                ripko.posliRIP("01005E000009", macLabel2.Text, "224.0.0.9", port2IPadressText.Text);
+                if (beziport1 && bezirip1)
+                {
+                    // info su o porte kablu 1 ale posiela sa portom 2
+                    EthernetPacket packet = ripko.posielanieRIP("01005E000009", macLabel2.Text, "224.0.0.9", port2IPadressText.Text, port1IPadressText.Text, port1Maska.Text, 1);
+                    zapajaniekablov.posliPacket(packet, 2);
+                }
             }
+        }
+
+        public void posliRIPPoison(Int32 portkablu, DataRow riadok)
+        {
+            if (portkablu == 1)
+            {
+                // info su o porte kablu 2 ale posiela sa portom 1
+                EthernetPacket packet = ripko.posielanieRIPSingle("01005E000009", macLabel1.Text, "224.0.0.9", port1IPadressText.Text, riadok);
+                zapajaniekablov.posliPacket(packet, 1);
+            }
+            else // portkablu = 2
+            {
+                // info su o porte kablu 1 ale posiela sa portom 2
+                EthernetPacket packet = ripko.posielanieRIPSingle("01005E000009", macLabel2.Text, "224.0.0.9", port2IPadressText.Text, riadok);
+                zapajaniekablov.posliPacket(packet, 2);
+            }
+        }
+
+        public void posliRIPPoison(Int32 portkablu, DataRow riadok, Boolean TU)
+        {
+            if (portkablu == 1)
+            {
+                // info su o porte kablu 2 ale posiela sa portom 1
+                EthernetPacket packet = ripko.posielanieRIPSingle("01005E000009", macLabel1.Text, "224.0.0.9", port1IPadressText.Text, riadok, TU);
+                zapajaniekablov.posliPacket(packet, 1);
+            }
+            else // portkablu = 2
+            {
+                // info su o porte kablu 1 ale posiela sa portom 2
+                EthernetPacket packet = ripko.posielanieRIPSingle("01005E000009", macLabel2.Text, "224.0.0.9", port2IPadressText.Text, riadok, TU);
+                zapajaniekablov.posliPacket(packet, 2);
+            }
+        }
+        
+        public List<int> indexiNextHopy(IPAddress siet, IPAddress maska)
+        {
+            List<int> del = new List<int>();
+            for (int i = routingtabulka.Rows.Count - 1; i >= 0; i--)
+            {
+                string n = (string)routingtabulka.Rows[i]["NextHop"];
+                if (!n.Equals("null"))
+                {
+                    IPAddress nexthop = IPAddress.Parse(n);
+                    if (siet.Equals(nexthop.GetNetworkAddress(maska)))
+                    {
+                        del.Add(i);
+                        IPAddress netThis = IPAddress.Parse((string)routingtabulka.Rows[i]["NextHop"]);
+                        IPAddress maskThis = IPAddress.Parse((string)routingtabulka.Rows[i]["NextHop"]);
+                        del.AddRange(indexiNextHopy(netThis, maskThis));
+                    }
+                }
+            }
+            return del;
+        }
+
+        public List<int> indexiRoutovacejTabulkyPreOperacie(IPAddress siet, IPAddress maska, Int32 portkablu)
+        {
+            List<int> zoznam = indexiNextHopy(siet, maska);
+            //vsetky co maju interface druhy            
+            DataRow[] riadky = routingtabulka.Select("Interface = " + portkablu + " and (Lokacia = 'ROUT+RIP' or Lokacia = '')");
+            foreach(DataRow riadok in riadky){           
+                      
+                    zoznam.Add(routingtabulka.Rows.IndexOf(riadok));                  
+            }
+            zoznam = zoznam.Distinct().ToList();
+            return zoznam;
+        }
+
+        private void ripButtonPort1_Click(object sender, EventArgs e)
+        {            
+            if (RIP1.Equals('0'))
+            {
+                //zacni posielat rip                
+                posielanieRIP1.Start();
+                RIP1 = '1';
+                bezirip1 = true;
+            }
+            else
+            {
+                //prestan
+                posielanieRIP1.Stop();
+                RIP1 = '0';
+                bezirip1 = false;
+            }
+        }
+
+        private void ripButtonPort2_Click(object sender, EventArgs e)
+        {
+            if (RIP2.Equals('0'))
+            {
+                //zacni posielat rip
+                posielanieRIP2.Start();
+                RIP2 = '1';
+                bezirip2 = true;
+            }
+            else
+            {
+                //prestan
+                posielanieRIP2.Stop();
+                RIP2 = '0';
+                bezirip2 = false;
+            }
+        }
+
+        // posielanie RIP1
+        private void posielanieRIP1_Tick(object sender, EventArgs e)
+        {
+            /*try
+            {*/
+                if (bezirip1 == true)
+                {
+                    posliRIP(1);
+                    if (ripButtonPort1.BackColor == Color.LimeGreen)
+                        ripButtonPort1.BackColor = Color.White;
+                    else
+                        ripButtonPort1.BackColor = Color.LimeGreen;
+                }
+            /*}
+            catch {}*/
+        }
+        // posielanie RIP2
+        private void posielanieRIP2_Tick(object sender, EventArgs e)
+        {
+            /*try
+            {*/
+                if (bezirip2 == true)
+                {
+                    posliRIP(2);
+                    if (ripButtonPort2.BackColor == Color.LimeGreen)
+                        ripButtonPort2.BackColor = Color.White;
+                    else
+                        ripButtonPort2.BackColor = Color.LimeGreen;
+                }
+            /*}
+            catch {}*/
+        }
+
+        private void timerrip_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                foreach (DataRow riadok in routingtabulka.Rows)
+                {
+                    char ripznak = (char)riadok["Typ"];
+                    if (ripznak.Equals('R')) {
+                        int pom = 0;
+                        pom = ((int)riadok["Invalid+Flush"]);
+                        pom -= 1;
+                        if (pom > 0)
+                        {                            
+                            if(riadok["Flag"].Equals('0'))
+                                riadok["Lokacia"] = "ROUT+RIP";
+                            riadok["Invalid+Flush"] = pom;
+                        }
+                        else if (pom == 0)
+                        {
+                            if ((int)riadok["Interface"] == 1)
+                                posliRIPPoison(2, riadok);
+                            else
+                                posliRIPPoison(1, riadok);
+
+                            if (riadok["Flag"].Equals('0'))
+                                riadok["Lokacia"] = "ROUT+RIP";
+                            riadok["Metrika"] = 16;
+                            riadok["Invalid+Flush"] = pom;
+                        }
+                        else if (pom == -60)
+                        {
+                            routingtabulka.Rows.Remove(riadok);
+                        }
+                        else if (pom < 0)
+                        {
+                            if (riadok["Flag"].Equals('0'))
+                                riadok["Lokacia"] = "ROUT+RIP";
+                            riadok["Invalid+Flush"] = pom;
+                        }                        
+                    }
+                }
+            }
+            catch
+            {
+            }
+        }
+
+
+        public DataRow[] prelozpaketrip(byte[] ripBytes, Int32 portkablu, IPAddress nextHop)
+        {
+            return ripko.GetRipResponse(ripBytes, portkablu, nextHop);
+        }
+
+        private void port1OK_Click(object sender, EventArgs e)
+        {
+            zapajaniekablov.zapniInterface1(this, Convert.ToInt32(port1devlistnum.Text));
+        }
+
+        private void port2OK_Click(object sender, EventArgs e)
+        {
+            zapajaniekablov.zapniInterface2(this, Convert.ToInt32(port2devlistnum.Text));
+        }
+
+        private void port1OFF_Click(object sender, EventArgs e)
+        {
+            zapajaniekablov.zastavkomunikaciuInterface1(Convert.ToInt32(port1devlistnum.Text));
+        }
+
+        private void port2OFF_Click(object sender, EventArgs e)
+        {
+            zapajaniekablov.zastavkomunikaciuInterface2(Convert.ToInt32(port2devlistnum.Text));
         }
         
     }

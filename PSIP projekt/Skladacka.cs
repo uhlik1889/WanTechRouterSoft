@@ -63,5 +63,54 @@ namespace PSIP_projekt
 
             return packet;
         }
+
+        public EthernetPacket pingReply(String macCiel, String macZdroj, String ipecka, String ipeckaOdkial, byte[] data, ushort sequence, ushort identifier)
+        {
+            // Supposing to be on ethernet, set mac source to 01:01:01:01:01:01
+            string sourcik = string.Join(":", (from z in PhysicalAddress.Parse(macZdroj).GetAddressBytes() select z.ToString("X2")).ToArray());
+            MacAddress source = new MacAddress(sourcik);
+
+            string destinationik = string.Join(":", (from z in PhysicalAddress.Parse(macCiel).GetAddressBytes() select z.ToString("X2")).ToArray());
+            // set mac destination to 02:02:02:02:02:02
+            MacAddress destination = new MacAddress(destinationik);
+
+            // Create the packets layers
+
+            // Ethernet Layer
+            EthernetLayer ethernetLayer = new EthernetLayer
+            {
+                Source = source,
+                Destination = destination
+            };
+
+            // IPv4 Layer
+            IpV4Layer ipV4Layer = new IpV4Layer
+            {
+                Source = new IpV4Address(ipeckaOdkial),     // source IP address
+                Ttl = 128,
+                // The rest of the important parameters will be set for each packet
+            };
+
+            // ICMP Layer
+            IcmpEchoReplyLayer icmpLayer = new IcmpEchoReplyLayer();
+
+            PayloadLayer payload = new PayloadLayer();
+            payload.Data = new Datagram(data);
+
+            // Create the builder that will build our packets
+            PacketBuilder builder = new PacketBuilder(ethernetLayer, ipV4Layer, icmpLayer, payload);
+
+            ipV4Layer.CurrentDestination = new IpV4Address(ipecka);
+            ipV4Layer.Identification = 0;
+
+            // Set ICMP parameters
+            icmpLayer.SequenceNumber = sequence;
+            icmpLayer.Identifier = identifier;
+
+            // Build the packet
+            EthernetPacket packet = new EthernetPacket(new ByteArraySegment(builder.Build(DateTime.Now).Buffer));
+
+            return packet;
+        }
     }
 }

@@ -35,8 +35,6 @@
             this.port2devlistnum = new System.Windows.Forms.TextBox();
             this.label = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.ICMPlabelIn1 = new System.Windows.Forms.Label();
             this.ICMPpocettext1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -123,6 +121,15 @@
             this.pingTextBox = new System.Windows.Forms.TextBox();
             this.label33 = new System.Windows.Forms.Label();
             this.pingButton = new System.Windows.Forms.Button();
+            this.ripButtonPort1 = new System.Windows.Forms.Button();
+            this.ripButtonPort2 = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.posielanieRIP1 = new System.Windows.Forms.Timer(this.components);
+            this.posielanieRIP2 = new System.Windows.Forms.Timer(this.components);
+            this.port1OK = new System.Windows.Forms.Button();
+            this.port2OK = new System.Windows.Forms.Button();
+            this.port1OFF = new System.Windows.Forms.Button();
+            this.port2OFF = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.arpTabulkaView)).BeginInit();
             this.panel2.SuspendLayout();
@@ -183,26 +190,6 @@
             this.label2.Size = new System.Drawing.Size(34, 13);
             this.label2.TabIndex = 6;
             this.label2.Text = "port 2";
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(215, 110);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(110, 23);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "Zapoj router";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(215, 137);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(110, 23);
-            this.button3.TabIndex = 8;
-            this.button3.Text = "Zastav spojenie";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // ICMPlabelIn1
             // 
@@ -743,11 +730,11 @@
             // 
             // port1IPadressText
             // 
-            this.port1IPadressText.Location = new System.Drawing.Point(97, 193);
+            this.port1IPadressText.Location = new System.Drawing.Point(61, 193);
             this.port1IPadressText.Name = "port1IPadressText";
             this.port1IPadressText.Size = new System.Drawing.Size(84, 20);
             this.port1IPadressText.TabIndex = 27;
-            this.port1IPadressText.Text = "1.1.1.1";
+            this.port1IPadressText.Text = "172.16.0.2";
             // 
             // sendARPtoIPButton1
             // 
@@ -762,7 +749,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(44, 193);
+            this.label1.Location = new System.Drawing.Point(8, 193);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 31;
@@ -770,16 +757,16 @@
             // 
             // port2IPadressText
             // 
-            this.port2IPadressText.Location = new System.Drawing.Point(97, 223);
+            this.port2IPadressText.Location = new System.Drawing.Point(61, 223);
             this.port2IPadressText.Name = "port2IPadressText";
             this.port2IPadressText.Size = new System.Drawing.Size(84, 20);
             this.port2IPadressText.TabIndex = 32;
-            this.port2IPadressText.Text = "2.2.2.2";
+            this.port2IPadressText.Text = "10.0.0.1";
             // 
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(44, 226);
+            this.label21.Location = new System.Drawing.Point(8, 226);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(35, 13);
             this.label21.TabIndex = 33;
@@ -787,6 +774,7 @@
             // 
             // routovaciaTableView
             // 
+            this.routovaciaTableView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.routovaciaTableView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.routovaciaTableView.Location = new System.Drawing.Point(482, 27);
             this.routovaciaTableView.MultiSelect = false;
@@ -797,24 +785,24 @@
             // 
             // port1Maska
             // 
-            this.port1Maska.Location = new System.Drawing.Point(251, 193);
+            this.port1Maska.Location = new System.Drawing.Point(206, 191);
             this.port1Maska.Name = "port1Maska";
-            this.port1Maska.Size = new System.Drawing.Size(84, 20);
+            this.port1Maska.Size = new System.Drawing.Size(94, 20);
             this.port1Maska.TabIndex = 37;
-            this.port1Maska.Text = "255.255.255.0";
+            this.port1Maska.Text = "255.255.255.248";
             // 
             // port2Maska
             // 
-            this.port2Maska.Location = new System.Drawing.Point(251, 223);
+            this.port2Maska.Location = new System.Drawing.Point(206, 223);
             this.port2Maska.Name = "port2Maska";
-            this.port2Maska.Size = new System.Drawing.Size(84, 20);
+            this.port2Maska.Size = new System.Drawing.Size(94, 20);
             this.port2Maska.TabIndex = 38;
-            this.port2Maska.Text = "255.255.255.0";
+            this.port2Maska.Text = "255.255.255.128";
             // 
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(94, 168);
+            this.label23.Location = new System.Drawing.Point(58, 168);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(49, 13);
             this.label23.TabIndex = 39;
@@ -823,7 +811,7 @@
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(253, 168);
+            this.label26.Location = new System.Drawing.Point(217, 168);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(39, 13);
             this.label26.TabIndex = 40;
@@ -858,7 +846,7 @@
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(375, 168);
+            this.label27.Location = new System.Drawing.Point(339, 168);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(63, 13);
             this.label27.TabIndex = 43;
@@ -867,7 +855,7 @@
             // macLabel1
             // 
             this.macLabel1.AutoSize = true;
-            this.macLabel1.Location = new System.Drawing.Point(352, 196);
+            this.macLabel1.Location = new System.Drawing.Point(316, 196);
             this.macLabel1.Name = "macLabel1";
             this.macLabel1.Size = new System.Drawing.Size(36, 13);
             this.macLabel1.TabIndex = 44;
@@ -877,7 +865,7 @@
             // macLabel2
             // 
             this.macLabel2.AutoSize = true;
-            this.macLabel2.Location = new System.Drawing.Point(352, 225);
+            this.macLabel2.Location = new System.Drawing.Point(316, 225);
             this.macLabel2.Name = "macLabel2";
             this.macLabel2.Size = new System.Drawing.Size(36, 13);
             this.macLabel2.TabIndex = 45;
@@ -981,7 +969,7 @@
             // 
             // pingTextBox
             // 
-            this.pingTextBox.Location = new System.Drawing.Point(97, 265);
+            this.pingTextBox.Location = new System.Drawing.Point(61, 265);
             this.pingTextBox.Name = "pingTextBox";
             this.pingTextBox.Size = new System.Drawing.Size(132, 20);
             this.pingTextBox.TabIndex = 57;
@@ -990,7 +978,7 @@
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(94, 249);
+            this.label33.Location = new System.Drawing.Point(58, 249);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(49, 13);
             this.label33.TabIndex = 58;
@@ -998,7 +986,7 @@
             // 
             // pingButton
             // 
-            this.pingButton.Location = new System.Drawing.Point(235, 263);
+            this.pingButton.Location = new System.Drawing.Point(199, 263);
             this.pingButton.Name = "pingButton";
             this.pingButton.Size = new System.Drawing.Size(57, 23);
             this.pingButton.TabIndex = 59;
@@ -1006,11 +994,78 @@
             this.pingButton.UseVisualStyleBackColor = true;
             this.pingButton.Click += new System.EventHandler(this.pingButton_Click);
             // 
+            // ripButtonPort1
+            // 
+            this.ripButtonPort1.Location = new System.Drawing.Point(413, 188);
+            this.ripButtonPort1.Name = "ripButtonPort1";
+            this.ripButtonPort1.Size = new System.Drawing.Size(48, 23);
+            this.ripButtonPort1.TabIndex = 60;
+            this.ripButtonPort1.Text = "RIP";
+            this.ripButtonPort1.UseVisualStyleBackColor = true;
+            this.ripButtonPort1.Click += new System.EventHandler(this.ripButtonPort1_Click);
+            // 
+            // ripButtonPort2
+            // 
+            this.ripButtonPort2.Location = new System.Drawing.Point(413, 221);
+            this.ripButtonPort2.Name = "ripButtonPort2";
+            this.ripButtonPort2.Size = new System.Drawing.Size(48, 23);
+            this.ripButtonPort2.TabIndex = 61;
+            this.ripButtonPort2.Text = "RIP";
+            this.ripButtonPort2.UseVisualStyleBackColor = true;
+            this.ripButtonPort2.Click += new System.EventHandler(this.ripButtonPort2_Click);
+            
+            // 
+            // port1OK
+            // 
+            this.port1OK.Location = new System.Drawing.Point(215, 107);
+            this.port1OK.Name = "port1OK";
+            this.port1OK.Size = new System.Drawing.Size(75, 23);
+            this.port1OK.TabIndex = 62;
+            this.port1OK.Text = "OK";
+            this.port1OK.UseVisualStyleBackColor = true;
+            this.port1OK.Click += new System.EventHandler(this.port1OK_Click);
+            // 
+            // port2OK
+            // 
+            this.port2OK.Location = new System.Drawing.Point(215, 136);
+            this.port2OK.Name = "port2OK";
+            this.port2OK.Size = new System.Drawing.Size(75, 23);
+            this.port2OK.TabIndex = 63;
+            this.port2OK.Text = "OK";
+            this.port2OK.UseVisualStyleBackColor = true;
+            this.port2OK.Click += new System.EventHandler(this.port2OK_Click);
+            // 
+            // port1OFF
+            // 
+            this.port1OFF.Location = new System.Drawing.Point(319, 107);
+            this.port1OFF.Name = "port1OFF";
+            this.port1OFF.Size = new System.Drawing.Size(75, 23);
+            this.port1OFF.TabIndex = 64;
+            this.port1OFF.Text = "OFF";
+            this.port1OFF.UseVisualStyleBackColor = true;
+            this.port1OFF.Click += new System.EventHandler(this.port1OFF_Click);
+            // 
+            // port2OFF
+            // 
+            this.port2OFF.Location = new System.Drawing.Point(319, 136);
+            this.port2OFF.Name = "port2OFF";
+            this.port2OFF.Size = new System.Drawing.Size(75, 23);
+            this.port2OFF.TabIndex = 65;
+            this.port2OFF.Text = "OFF";
+            this.port2OFF.UseVisualStyleBackColor = true;
+            this.port2OFF.Click += new System.EventHandler(this.port2OFF_Click);
+            // 
             // Control
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1218, 740);
+            this.Controls.Add(this.port2OFF);
+            this.Controls.Add(this.port1OFF);
+            this.Controls.Add(this.port2OK);
+            this.Controls.Add(this.port1OK);
+            this.Controls.Add(this.ripButtonPort2);
+            this.Controls.Add(this.ripButtonPort1);
             this.Controls.Add(this.pingButton);
             this.Controls.Add(this.label33);
             this.Controls.Add(this.pingTextBox);
@@ -1052,8 +1107,6 @@
             this.Controls.Add(this.arpTabulkaView);
             this.Controls.Add(this.arptext);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label);
             this.Controls.Add(this.port2devlistnum);
@@ -1085,8 +1138,6 @@
         private System.Windows.Forms.TextBox port2devlistnum;
         private System.Windows.Forms.Label label;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label ICMPlabelIn1;
         private System.Windows.Forms.Label ICMPpocettext1;
         private System.Windows.Forms.Panel panel1;
@@ -1172,7 +1223,16 @@
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.TextBox pingTextBox;
         private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.Button pingButton;
+        public System.Windows.Forms.Button pingButton;
+        private System.Windows.Forms.Button ripButtonPort1;
+        private System.Windows.Forms.Button ripButtonPort2;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer posielanieRIP1;
+        private System.Windows.Forms.Timer posielanieRIP2;
+        private System.Windows.Forms.Button port1OK;
+        private System.Windows.Forms.Button port2OK;
+        private System.Windows.Forms.Button port1OFF;
+        private System.Windows.Forms.Button port2OFF;
     }
 }
 
