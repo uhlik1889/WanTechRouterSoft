@@ -76,7 +76,7 @@ namespace PSIP_projekt
         {
             WinPcapDeviceList deviceswinp = WinPcapDeviceList.Instance;
             int readTimeoutMilliseconds = 100;
-            if (port1device!= null && port1device.Opened && hlavnaforma.beziport1)
+            if (port1device!= null && port1device.Opened && hlavnaforma.beziport1 && checkIP(hlavnaforma.port1IP(), true) && checkIP(hlavnaforma.port1MASKA(), false))
             {
 
                 DataRow[] riadok = hlavnaforma.routingtabulka.Select("Interface = 1 and Typ = 'C'");
@@ -111,29 +111,32 @@ namespace PSIP_projekt
             }
             else
             {
-                port1device = deviceswinp[pc1];
-                port1device.OnPacketArrival += new SharpPcap.PacketArrivalEventHandler(device_OnPacketArrivalpc1);
+                if (checkIP(hlavnaforma.port1IP(), true) && checkIP(hlavnaforma.port1MASKA(), false))
+                {
+                    port1device = deviceswinp[pc1];
+                    port1device.OnPacketArrival += new SharpPcap.PacketArrivalEventHandler(device_OnPacketArrivalpc1);
 
-                port1device.Open(OpenFlags.NoCaptureLocal | OpenFlags.Promiscuous, readTimeoutMilliseconds);
-                port1device.StartCapture();
+                    port1device.Open(OpenFlags.NoCaptureLocal | OpenFlags.Promiscuous, readTimeoutMilliseconds);
+                    port1device.StartCapture();
 
-                DataRow row1 = hlavnaforma.routingtabulka.NewRow();
-                row1["Siet"] = IPAddressExtensions.GetNetworkAddress(IPAddress.Parse(hlavnaforma.port1IP()),
-                    IPAddress.Parse(hlavnaforma.port1MASKA()));
-                row1["Maska"] = hlavnaforma.port1MASKA();
-                row1["Typ"] = 'C';
-                row1["NextHop"] = "null";
-                row1["Interface"] = 1;
-                hlavnaforma.routingtabulka.Rows.Add(row1);
+                    DataRow row1 = hlavnaforma.routingtabulka.NewRow();
+                    row1["Siet"] = IPAddressExtensions.GetNetworkAddress(IPAddress.Parse(hlavnaforma.port1IP()),
+                        IPAddress.Parse(hlavnaforma.port1MASKA()));
+                    row1["Maska"] = hlavnaforma.port1MASKA();
+                    row1["Typ"] = 'C';
+                    row1["NextHop"] = "null";
+                    row1["Interface"] = 1;
+                    hlavnaforma.routingtabulka.Rows.Add(row1);
 
-                hlavnaforma.macnastav(port1device.MacAddress.ToString(), 1);
-                //hlavnaforma.bezirip1 = true;
-                hlavnaforma.beziport1 = true;
-                //gratious
-                PosliARPRequest(hlavnaforma.port1IP(), hlavnaforma.port1IP(), 1);
-                DataRow[] riadoknovy = hlavnaforma.routingtabulka.Select("Interface = 1 and Typ = 'C'");
-                if (hlavnaforma.bezirip1)
-                    hlavnaforma.posliRIPPoison(2, riadoknovy[0], true);
+                    hlavnaforma.macnastav(port1device.MacAddress.ToString(), 1);
+                    //hlavnaforma.bezirip1 = true;
+                    hlavnaforma.beziport1 = true;
+                    //gratious
+                    PosliARPRequest(hlavnaforma.port1IP(), hlavnaforma.port1IP(), 1);
+                    DataRow[] riadoknovy = hlavnaforma.routingtabulka.Select("Interface = 1 and Typ = 'C'");
+                    if (hlavnaforma.bezirip1)
+                        hlavnaforma.posliRIPPoison(2, riadoknovy[0], true);
+                }
             } 
         }
 
@@ -141,7 +144,7 @@ namespace PSIP_projekt
         {
             WinPcapDeviceList deviceswinp = WinPcapDeviceList.Instance;
             int readTimeoutMilliseconds = 100;
-            if (hlavnaforma.beziport2 && port2device != null && port2device.Opened)
+            if (hlavnaforma.beziport2 && port2device != null && port2device.Opened && checkIP(hlavnaforma.port2IP(), true) && checkIP(hlavnaforma.port2MASKA(), false))
             {                
 
                 DataRow[] riadok = hlavnaforma.routingtabulka.Select("Interface = 2 and Typ = 'C'");
@@ -175,29 +178,32 @@ namespace PSIP_projekt
             }
             else
             {
-                port2device = deviceswinp[pc2];
-                port2device.OnPacketArrival += new SharpPcap.PacketArrivalEventHandler(device_OnPacketArrivalpc2);
+                if (checkIP(hlavnaforma.port1IP(), true) && checkIP(hlavnaforma.port1MASKA(), false))
+                {
+                    port2device = deviceswinp[pc2];
+                    port2device.OnPacketArrival += new SharpPcap.PacketArrivalEventHandler(device_OnPacketArrivalpc2);
 
-                port2device.Open(OpenFlags.NoCaptureLocal | OpenFlags.Promiscuous, readTimeoutMilliseconds);
-                port2device.StartCapture();
+                    port2device.Open(OpenFlags.NoCaptureLocal | OpenFlags.Promiscuous, readTimeoutMilliseconds);
+                    port2device.StartCapture();
 
-                DataRow row1 = hlavnaforma.routingtabulka.NewRow();
-                row1["Siet"] = IPAddressExtensions.GetNetworkAddress(IPAddress.Parse(hlavnaforma.port2IP()),
-                    IPAddress.Parse(hlavnaforma.port2MASKA()));
-                row1["Maska"] = hlavnaforma.port2MASKA();
-                row1["Typ"] = 'C';
-                row1["NextHop"] = "null";
-                row1["Interface"] = 2;
-                hlavnaforma.routingtabulka.Rows.Add(row1);
+                    DataRow row1 = hlavnaforma.routingtabulka.NewRow();
+                    row1["Siet"] = IPAddressExtensions.GetNetworkAddress(IPAddress.Parse(hlavnaforma.port2IP()),
+                        IPAddress.Parse(hlavnaforma.port2MASKA()));
+                    row1["Maska"] = hlavnaforma.port2MASKA();
+                    row1["Typ"] = 'C';
+                    row1["NextHop"] = "null";
+                    row1["Interface"] = 2;
+                    hlavnaforma.routingtabulka.Rows.Add(row1);
 
-                hlavnaforma.macnastav(port2device.MacAddress.ToString(), 2);
-                //hlavnaforma.bezirip2 = true;
-                hlavnaforma.beziport2 = true;
-                //gratious
-                PosliARPRequest(hlavnaforma.port2IP(), hlavnaforma.port2IP(), 2);
-                DataRow[] riadoknovy = hlavnaforma.routingtabulka.Select("Interface = 2 and Typ = 'C'");
-                if (hlavnaforma.bezirip2)
-                    hlavnaforma.posliRIPPoison(1, riadoknovy[0]);
+                    hlavnaforma.macnastav(port2device.MacAddress.ToString(), 2);
+                    //hlavnaforma.bezirip2 = true;
+                    hlavnaforma.beziport2 = true;
+                    //gratious
+                    PosliARPRequest(hlavnaforma.port2IP(), hlavnaforma.port2IP(), 2);
+                    DataRow[] riadoknovy = hlavnaforma.routingtabulka.Select("Interface = 2 and Typ = 'C'");
+                    if (hlavnaforma.bezirip2)
+                        hlavnaforma.posliRIPPoison(1, riadoknovy[0]);
+                }
             }
         }
 
@@ -1145,7 +1151,7 @@ namespace PSIP_projekt
             }
         }
 
-        private Boolean checkIP(string ip, bool ipTRUE_maskFALSE)
+        public Boolean checkIP(string ip, bool ipTRUE_maskFALSE)
         {
             string patternIP = @"\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b";
             string mask = @"(255|254|252|248|240|224|192|128|0+)";

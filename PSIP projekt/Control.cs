@@ -632,10 +632,14 @@ namespace PSIP_projekt
         // tlacitko pre vytvorenie statickej cesty
         private void button7_Click(object sender, EventArgs e)
         {
-            if(interfaceTextBoxSC.Text.Equals(""))
-                zapajaniekablov.vytvorStatickuCestu(sietTextBoxSC.Text, maskaTextBoxSC.Text, nextHopTextBoxSC.Text, 0);
-            else
-                zapajaniekablov.vytvorStatickuCestu(sietTextBoxSC.Text, maskaTextBoxSC.Text, nextHopTextBoxSC.Text, Int32.Parse(interfaceTextBoxSC.Text));
+            try
+            {
+                if (interfaceTextBoxSC.Text.Equals(""))
+                    zapajaniekablov.vytvorStatickuCestu(sietTextBoxSC.Text, maskaTextBoxSC.Text, nextHopTextBoxSC.Text, 0);
+                else if (Int32.Parse(interfaceTextBoxSC.Text) > 0 && Int32.Parse(interfaceTextBoxSC.Text) < 3)
+                    zapajaniekablov.vytvorStatickuCestu(sietTextBoxSC.Text, maskaTextBoxSC.Text, nextHopTextBoxSC.Text, Int32.Parse(interfaceTextBoxSC.Text));
+            }
+            catch { }
         }
         // tlacitko pre zrusenie statickej cesty
         private void buttonSCZrus_Click(object sender, EventArgs e)
@@ -649,8 +653,11 @@ namespace PSIP_projekt
 
         private void pingButton_Click(object sender, EventArgs e)
         {
-            zapajaniekablov.posliPing(pingTextBox.Text);
-            pingButton.BackColor = Color.BlueViolet;
+            if (zapajaniekablov.checkIP(pingTextBox.Text, true))
+            {
+                zapajaniekablov.posliPing(pingTextBox.Text);
+                pingButton.BackColor = Color.BlueViolet;
+            }
         }
 
         //////////////////////////////////////////////////////////////////////////////////////
@@ -867,22 +874,36 @@ namespace PSIP_projekt
 
         private void port1OK_Click(object sender, EventArgs e)
         {
-            zapajaniekablov.zapniInterface1(this, Convert.ToInt32(port1devlistnum.Text));
+            try {
+                zapajaniekablov.zapniInterface1(this, Convert.ToInt32(port1devlistnum.Text));
+            }catch{ port1devlistnum.Text = "Zly port"; }
         }
 
         private void port2OK_Click(object sender, EventArgs e)
         {
-            zapajaniekablov.zapniInterface2(this, Convert.ToInt32(port2devlistnum.Text));
+            try
+            {
+                zapajaniekablov.zapniInterface2(this, Convert.ToInt32(port2devlistnum.Text));
+            }
+            catch { port2devlistnum.Text = "Zly port"; }
         }
 
         private void port1OFF_Click(object sender, EventArgs e)
         {
-            zapajaniekablov.zastavkomunikaciuInterface1(Convert.ToInt32(port1devlistnum.Text));
+            try
+            {
+                zapajaniekablov.zastavkomunikaciuInterface1(Convert.ToInt32(port1devlistnum.Text));
+            }
+            catch { port1devlistnum.Text = "Zly port"; }
         }
 
         private void port2OFF_Click(object sender, EventArgs e)
         {
-            zapajaniekablov.zastavkomunikaciuInterface2(Convert.ToInt32(port2devlistnum.Text));
+            try
+            {
+                zapajaniekablov.zastavkomunikaciuInterface2(Convert.ToInt32(port2devlistnum.Text));
+            }
+            catch { port2devlistnum.Text = "Zly port"; }
         }
         
     }
