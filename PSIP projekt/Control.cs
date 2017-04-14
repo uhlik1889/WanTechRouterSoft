@@ -51,6 +51,8 @@ namespace PSIP_projekt
         public bool bezirip2 = false;
         public bool beziport1 = false;
         public bool beziport2 = false;
+        private int port1ripcasovac = 0;
+        private int port2ripcasovac = 0;
 
         private string mac1;
         private string mac2;
@@ -78,11 +80,11 @@ namespace PSIP_projekt
             timer1.Enabled = true;
             timer1.Start();
 
-            posielanieRIP1.Interval = (5000);
+            posielanieRIP1.Interval = (1000);
             posielanieRIP1.Tick += new EventHandler(posielanieRIP1_Tick);
 
 
-            posielanieRIP2.Interval = (5000);
+            posielanieRIP2.Interval = (1000);
             posielanieRIP2.Tick += new EventHandler(posielanieRIP2_Tick);
   
 
@@ -758,6 +760,8 @@ namespace PSIP_projekt
                 posielanieRIP1.Start();
                 RIP1 = '1';
                 bezirip1 = true;
+                port1ripcasovac = 0;
+                port1ripcasovaclabel.Text = port1ripcasovac.ToString();
             }
             else
             {
@@ -775,7 +779,7 @@ namespace PSIP_projekt
                 //zacni posielat rip
                 posielanieRIP2.Start();
                 RIP2 = '1';
-                bezirip2 = true;
+                bezirip2 = true;                
             }
             else
             {
@@ -783,40 +787,60 @@ namespace PSIP_projekt
                 posielanieRIP2.Stop();
                 RIP2 = '0';
                 bezirip2 = false;
+                port2ripcasovac = 0;
+                port2ripcasovaclabel.Text = port2ripcasovac.ToString();
             }
         }
 
         // posielanie RIP1
         private void posielanieRIP1_Tick(object sender, EventArgs e)
-        {
-            /*try
-            {*/
-                if (bezirip1 == true)
-                {
-                    posliRIP(1);
-                    if (ripButtonPort1.BackColor == Color.LimeGreen)
-                        ripButtonPort1.BackColor = Color.White;
-                    else
-                        ripButtonPort1.BackColor = Color.LimeGreen;
-                }
-            /*}
-            catch {}*/
+        {            
+           if (bezirip1 == true)
+           {
+                if (ripButtonPort1.BackColor == Color.LimeGreen)
+                    ripButtonPort1.BackColor = Color.White;
+                port1ripcasovac++;
+                port1ripcasovaclabel.Text = port1ripcasovac.ToString();
+                if (port1ripcasovac == 30)
+                    {
+                    port1ripcasovac = 0;
+                    port1ripcasovaclabel.Text = port1ripcasovac.ToString();
+                    posliRIP(1);                        
+                    ripButtonPort1.BackColor = Color.LimeGreen;
+                    }
+            }
+            else
+            {            
+                port1ripcasovac = 0;
+                port1ripcasovaclabel.Text = port1ripcasovac.ToString();
+                ripButtonPort1.BackColor = Color.White;
+            }
+            
         }
         // posielanie RIP2
         private void posielanieRIP2_Tick(object sender, EventArgs e)
-        {
-            /*try
-            {*/
-                if (bezirip2 == true)
+        {            
+            if (bezirip2 == true)
+            {
+                if (ripButtonPort2.BackColor == Color.LimeGreen)
+                    ripButtonPort2.BackColor = Color.White;
+                port2ripcasovac++;
+                port2ripcasovaclabel.Text = port2ripcasovac.ToString();
+                if (port2ripcasovac == 30)
                 {
-                    posliRIP(2);
-                    if (ripButtonPort2.BackColor == Color.LimeGreen)
-                        ripButtonPort2.BackColor = Color.White;
-                    else
-                        ripButtonPort2.BackColor = Color.LimeGreen;
+                    port2ripcasovac = 0;
+                    port2ripcasovaclabel.Text = port2ripcasovac.ToString();
+                    posliRIP(2);                    
+                    ripButtonPort2.BackColor = Color.LimeGreen;
                 }
-            /*}
-            catch {}*/
+            }
+            else
+            {
+                port2ripcasovac = 0;
+                port2ripcasovaclabel.Text = port2ripcasovac.ToString();
+                ripButtonPort2.BackColor = Color.White;
+            }
+            
         }
 
         private void timerrip_Tick(object sender, EventArgs e)

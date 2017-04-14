@@ -130,6 +130,8 @@
             this.port2OK = new System.Windows.Forms.Button();
             this.port1OFF = new System.Windows.Forms.Button();
             this.port2OFF = new System.Windows.Forms.Button();
+            this.port1ripcasovaclabel = new System.Windows.Forms.Label();
+            this.port2ripcasovaclabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.arpTabulkaView)).BeginInit();
             this.panel2.SuspendLayout();
@@ -1013,7 +1015,6 @@
             this.ripButtonPort2.Text = "RIP";
             this.ripButtonPort2.UseVisualStyleBackColor = true;
             this.ripButtonPort2.Click += new System.EventHandler(this.ripButtonPort2_Click);
-            
             // 
             // port1OK
             // 
@@ -1055,11 +1056,31 @@
             this.port2OFF.UseVisualStyleBackColor = true;
             this.port2OFF.Click += new System.EventHandler(this.port2OFF_Click);
             // 
+            // port1ripcasovaclabel
+            // 
+            this.port1ripcasovaclabel.AutoSize = true;
+            this.port1ripcasovaclabel.Location = new System.Drawing.Point(463, 193);
+            this.port1ripcasovaclabel.Name = "port1ripcasovaclabel";
+            this.port1ripcasovaclabel.Size = new System.Drawing.Size(13, 13);
+            this.port1ripcasovaclabel.TabIndex = 66;
+            this.port1ripcasovaclabel.Text = "0";
+            // 
+            // port2ripcasovaclabel
+            // 
+            this.port2ripcasovaclabel.AutoSize = true;
+            this.port2ripcasovaclabel.Location = new System.Drawing.Point(463, 226);
+            this.port2ripcasovaclabel.Name = "port2ripcasovaclabel";
+            this.port2ripcasovaclabel.Size = new System.Drawing.Size(13, 13);
+            this.port2ripcasovaclabel.TabIndex = 67;
+            this.port2ripcasovaclabel.Text = "0";
+            // 
             // Control
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1218, 740);
+            this.Controls.Add(this.port2ripcasovaclabel);
+            this.Controls.Add(this.port1ripcasovaclabel);
             this.Controls.Add(this.port2OFF);
             this.Controls.Add(this.port1OFF);
             this.Controls.Add(this.port2OK);
@@ -1233,6 +1254,8 @@
         private System.Windows.Forms.Button port2OK;
         private System.Windows.Forms.Button port1OFF;
         private System.Windows.Forms.Button port2OFF;
+        private System.Windows.Forms.Label port1ripcasovaclabel;
+        private System.Windows.Forms.Label port2ripcasovaclabel;
     }
 }
 

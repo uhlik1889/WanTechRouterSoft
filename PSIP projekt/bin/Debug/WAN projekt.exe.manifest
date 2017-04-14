@@ -114,14 +114,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WAN projekt.exe" size="86488">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WAN projekt.exe" size="87512">
       <assemblyIdentity name="WAN projekt" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>+WvCngjR/kDBH1jsMvw6/l07/Mfxoab9aQb35nqd0tY=</dsig:DigestValue>
+        <dsig:DigestValue>pw5Dy6JGAmg0pK6fKKvmU4OXFa2+J6kBOod/boh/wwg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
